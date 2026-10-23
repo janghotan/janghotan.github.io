@@ -87,7 +87,8 @@
 
   function render() {
     const result = selectedRepos();
-    grid.replaceChildren(...result.map(createCard));
+    grid.innerHTML = "";
+    result.forEach((repo, index) => grid.appendChild(createCard(repo, index)));
     grid.hidden = result.length === 0;
     $("#empty-state").hidden = result.length !== 0;
     $("#result-count").textContent = result.length;
