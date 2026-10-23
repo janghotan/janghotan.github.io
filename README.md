@@ -1,40 +1,33 @@
-# janghotan.github.io
+# Jangho Tan
 
-Personal portfolio. Static HTML/CSS/JS, no build step, deployed to GitHub Pages
-via Actions. Repo data is fetched client-side from the GitHub API — public
-repos only, hard-filtered on `private === false`.
+Personal portfolio for Jangho Tan (@janghotan), an AI agent and LLM developer with a security background. The interface is a compact developer workspace in English, built with static HTML, CSS, and JavaScript.
 
 ## Files
 
 ```
-index.html               markup
-style.css                design system
-app.js                   live repo fetch + render, scroll-spy, count-up
-assets/favicon.svg       favicon
-assets/og.svg|png        social card (1200x630)
+index.html               page structure and content
+style.css                dark workspace design system and responsive layout
+app.js                   public GitHub data, search, stats, and navigation
+assets/favicon.svg       workspace mark
+assets/og.svg|png        social preview (1200 × 630)
 .github/workflows/pages.yml
 ```
 
-## Design system
+## Data and privacy
 
-- **Spacing** — single scale `--s1..--s8` = 4/8/12/16/24/32/48/64px, used everywhere.
-- **Color** — one accent `--accent:#6E7BFF` (interactive only: focus, active nav,
-  links). Semantic green `#3FB950` (added), red `#F85149` (removed), amber
-  `#D29922` (in progress). No decorative gradients.
-- **Type** — JetBrains Mono for code/terminal/numbers (tabular figures),
-  Inter for prose.
-- **Geometry** — one radius (4px) and one border weight (1px) across repo
-  cards, chips and nav.
-- **Motion** — all transitions/animations gated behind `prefers-reduced-motion`.
+- Repository data is fetched from the GitHub REST API with an eight-second timeout.
+- A repository must have `private === false` and must not report private visibility before it can be rendered.
+- The site repository and profile README are omitted from the project list.
+- API failures show a visible status and a direct link to GitHub; successful results are cached in session storage for ten minutes.
+- The repository search filters live public repo data locally in the browser.
 
-## Repo selection rules
+## Design
 
-- Never render private repos.
-- Hide the site repo and the profile readme.
-- Forks and generated repos (`apt`, `codex-chatgpt-web`) go to the collapsed
-  "other public repos" row, not the main grid.
-- Main grid capped at 6; a dashed `+ more on github` card fills the last cell.
+- Spacing uses the 4, 8, 12, 16, 24, 32, 48, and 64px scale.
+- Dark layered surfaces, a blue interaction accent, and semantic green/amber/red diff markers.
+- Inter for prose and JetBrains Mono for repository names and aligned data.
+- Animations and transitions honor `prefers-reduced-motion`.
 
 ## Deploy
 
-Push to `main`. Settings → Pages → Build and deployment → **Source: GitHub Actions**.
+Push to `main`. In repository settings, set Pages → Build and deployment → Source to **GitHub Actions**. The workflow at `.github/workflows/pages.yml` publishes the repository root.
