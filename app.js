@@ -5,7 +5,7 @@
   const REPOS_API = `https://api.github.com/users/${USER}/repos?type=owner&sort=updated&per_page=100`;
   const PROFILE_API = `https://api.github.com/users/${USER}`;
   const HIDE = new Set([`${USER}.github.io`, USER]);
-  const $ = (selector) => document.querySelector(selector);
+  const $ = (selector, root = document) => root.querySelector(selector);
   const grid = $("#project-grid");
   const status = $("#catalog-status");
   const search = $("#search");
@@ -13,96 +13,118 @@
   let repositories = [];
   let selected = "all";
 
-  const isPublicOwnedRepo = (repo) => repo && repo.owner?.login?.toLowerCase() === USER && repo.private === false && repo.visibility !== "private" && !HIDE.has(repo.name);
-  const shortDate = (date) => {
-    if (!date) return "Date unavailable";
-    return new Intl.DateTimeFormat("en", { month: "short", year: "numeric" }).format(new Date(date));
-  };
   const escape = (value) => String(value ?? "").replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[char]);
-  const colors = ["peach", "blue", "mint", "lavender", "pink", "yellow"];
-  const icons = {
-    Rust: "<path d='m12 3 2 1.2 2.4-.2.8 2.2 2 1.3-.7 2.3.7 2.3-2 1.3-.8 2.2-2.4-.2L12 18l-2-1.2-2.4.2-.8-2.2-2-1.3.7-2.3-.7-2.3 2-1.3.8-2.2 2.4.2L12 3Z'/><circle cx='12' cy='11.5' r='3'/><path d='M10.7 12.5v-2h1.5a.8.8 0 0 1 0 1.6h-1.5m1.5 0 1.1 1.2'/>",
-    Python: "<path d='M12 3c-2 0-2.6.8-2.6 2v2h5.2v1H7.5C5.7 8 5 9.1 5 11v2c0 1.9 1 2.8 2.8 2.8h1.7v-2.2c0-1.4 1-2.5 2.4-2.5h4.4c1.5 0 2.7-1.2 2.7-2.7V5c0-1.4-1.2-2-2.7-2H12Z'/><circle cx='13.6' cy='5.4' r='.55' fill='currentColor' stroke='none'/><path d='M12 21c2 0 2.6-.8 2.6-2v-2H9.4v-1h7.1c1.8 0 2.5-1.1 2.5-3v-2c0-1.9-1-2.8-2.8-2.8h-1.7v2.2c0 1.4-1 2.5-2.4 2.5H7.7c-1.5 0-2.7 1.2-2.7 2.7V19c0 1.4 1.2 2 2.7 2H12Z'/><circle cx='10.4' cy='18.6' r='.55' fill='currentColor' stroke='none'/>",
-    TypeScript: "<path d='M4 5h16v14H4z'/><path d='M7 9h6m-3 0v7m6-5c0-1 3-1 3 0s-3 1-3 2 3 1 3 0'/>",
-    HTML: "<path d='m5 4 1.3 15L12 21l5.7-2L19 4H5Z'/><path d='M8 8h8l-.3 3H8.3l.3 3H15l-.3 3-2.7 1-2.7-1-.2-1.5'/>",
-    fallback: "<path d='M4 5h16v14H4z'/><path d='M8 9h8M8 12h5M8 15h8'/>",
+  const isPublicOwnedRepo = (repo) => repo && repo.owner?.login?.toLowerCase() === USER && repo.private === false && repo.visibility !== "private" && !HIDE.has(repo.name);
+  const formatDate = (date) => date ? new Intl.DateTimeFormat("en", { month: "short", year: "numeric" }).format(new Date(date)) : "Date unavailable";
+  const readable = (n) => new Intl.NumberFormat("en", { notation: n >= 1000 ? "compact" : "standard", maximumFractionDigits: 1 }).format(Number(n) || 0);
+  const ICONS = {
+    Rust: "<path d='m12 3 2 1 2-.2.8 2 2 1-.6 2 .6 2-2 1-.8 2-2-.2-2 1-2-1-2 .2-.8-2-2-1 .6-2-.6-2 2-1 .8-2z'/><circle cx='12' cy='11.5' r='3'/>",
+    Python: "<path d='M12 3c-2 0-3 .8-3 2v3h6v1H7c-2 0-3 1-3 3v2c0 2 1 3 3 3h2v-3c0-2 1-3 3-3h4c2 0 3-1 3-3V6c0-2-1-3-3-3z'/><path d='M12 21c2 0 3-.8 3-2v-3H9v-1h8c2 0 3-1 3-3v-2c0-2-1-3-3-3h-2v3c0 2-1 3-3 3H8c-2 0-3 1-3 3v2c0 2 1 3 3 3z'/><circle cx='11' cy='5.5' r='.5'/><circle cx='13' cy='18.5' r='.5'/>",
+    TypeScript: "<path d='M4 5h16v14H4zM7 9h7m-3.5 0v7m5-4c0-1 4-1 4 0s-4 1-4 2 4 1 4 0'/>",
+    HTML: "<path d='m5 4 1.2 15L12 21l5.8-2L19 4zM8 8h8l-.3 3H8.3l.3 3H15l-.3 3-2.7 1-2.7-1-.2-1.5'/>",
+    fallback: "<path d='M4 5h16v14H4zM8 9h8M8 12h5M8 15h8'/>",
+  };
+  const ART = {
+    rewind: { type: "terminal", tag: "UNDO FOR SHELL", accent: "orange" },
+    "micro-dump": { type: "packet", tag: "HEADER INSPECTION", accent: "blue" },
+    dusk: { type: "disk", tag: "DISK USAGE CLI", accent: "green" },
+    "gsearch-cli": { type: "search", tag: "SEARCH LINKS", accent: "pink" },
+    apt: { type: "package", tag: "APT REPOSITORY", accent: "yellow" },
+    "SDK-Anything": { type: "nodes", tag: "AGENT TOOLING", accent: "purple" },
+    "codex-chatgpt-web": { type: "fork", tag: "PUBLIC FORK", accent: "dark" },
+  };
+  const artMarkup = (repo) => {
+    const art = ART[repo.name] || { type: "code", tag: repo.language || "OPEN SOURCE", accent: "orange" };
+    const scenes = {
+      terminal: `<div class="scene-terminal"><div><i></i><i></i><i></i><b>zsh</b></div><code><em>$</em> rm -rf src/<br><em>$</em> rewind undo<br><strong>✓ restored</strong></code></div><span class="scene-sticker">UNDO<br>READY</span>`,
+      packet: `<div class="scene-packet"><b>ETH</b><b>IP</b><b>TCP</b><strong>PAYLOAD<br>HIDDEN</strong></div><div class="scene-wave">${"<i></i>".repeat(13)}</div><span class="scene-sticker">PCAP<br>VIEW</span>`,
+      disk: `<div class="scene-disk"><span>PATH</span><b>~/projects</b><i style="--w:76%"></i><span>node_modules</span><i style="--w:48%"></i><span>src</span><i style="--w:24%"></i></div><span class="scene-sticker">SCAN<br>DEPTH</span>`,
+      search: `<div class="scene-search"><span>⌕</span><b>site:docs…</b><i>↗</i></div><div class="scene-search-tags"><b>WEB</b><b>IMAGES</b><b>NEWS</b><b>MAPS</b></div><span class="scene-sticker">QUERY<br>BUILDER</span>`,
+      package: `<div class="scene-package"><span>APT</span><b>rewind</b><small>signed package</small><strong>✓ VERIFIED</strong></div><span class="scene-sticker">INSTALL<br>SOURCE</span>`,
+      nodes: `<div class="scene-nodes"><b>SDK</b><i>→</i><div><span>MCP</span><span>CLI</span><span>SKILLS</span></div></div><span class="scene-sticker">TOOLS<br>IN HAND</span>`,
+      fork: `<div class="scene-fork"><span>UPSTREAM</span><b>↘</b><strong>PUBLIC<br>FORK</strong><b>↙</b><span>JANGHOTAN</span></div><span class="scene-sticker">FORK<br>OF</span>`,
+      code: `<div class="scene-terminal"><div><i></i><i></i><i></i><b>${escape(repo.language || "CODE")}</b></div><code><em>01</em> const tools = […]<br><em>02</em> build useful things<br><strong>03  ✓ ready</strong></code></div><span class="scene-sticker">PUBLIC<br>REPO</span>`,
+    };
+    return `<div class="repo-art art-${art.accent}" aria-hidden="true"><span class="art-label">${escape(art.tag)}</span>${scenes[art.type] || scenes.code}<span class="art-number">${String(repo.name || "").slice(0, 2).toUpperCase()}</span></div>`;
   };
 
-  function validRepos(value) {
-    return Array.isArray(value) ? value.filter(isPublicOwnedRepo) : [];
+  function validRepos(value) { return Array.isArray(value) ? value.filter(isPublicOwnedRepo) : []; }
+  function repoUrl(repo) {
+    return /^https:\/\/github\.com\/janghotan\/[\w.-]+\/?$/.test(repo.html_url || "") ? repo.html_url : `https://github.com/${USER}/${encodeURIComponent(repo.name)}`;
   }
-
-  function createCard(repo, index) {
+  function createCard(repo) {
     const language = repo.language || "Unspecified";
-    const topics = Array.isArray(repo.topics) ? repo.topics.slice(0, 3) : [];
-    const repoName = escape(repo.name);
-    const repoUrl = /^https:\/\/github\.com\/janghotan\/[\w.-]+\/?$/.test(repo.html_url || "") ? repo.html_url : `https://github.com/${USER}/${encodeURIComponent(repo.name)}`;
+    const topics = Array.isArray(repo.topics) ? repo.topics.slice(0, 4) : [];
     const homepage = typeof repo.homepage === "string" && /^https?:\/\//.test(repo.homepage) ? repo.homepage : "";
-    const color = colors[index % colors.length];
-    const icon = icons[language] || icons.fallback;
-    const badges = [repo.fork ? "FORK" : "PUBLIC", repo.archived ? "ARCHIVED" : ""].filter(Boolean);
     const card = document.createElement("article");
-    card.className = `project-card ${color}`;
-    card.innerHTML = `
-      <div class="card-art"><span class="card-art-label">${escape(language)}</span><div class="card-glyph" aria-hidden="true"><svg viewBox="0 0 24 24">${icon}</svg></div><span class="card-art-spark" aria-hidden="true">✳</span></div>
-      <div class="card-body"><div class="card-title-row"><h3><a href="${escape(repoUrl)}" target="_blank" rel="noreferrer">${repoName}</a></h3><span class="repo-badge">${badges.map(escape).join(" · ")}</span></div>
-      <p class="card-description">${escape(repo.description || "No description provided by the repository owner.")}</p>
-      <div class="topic-row">${topics.length ? topics.map((topic) => `<span>${escape(topic)}</span>`).join("") : `<span>${escape(language)}</span>`}</div>
-      <div class="card-meta"><span class="meta-language"><i aria-hidden="true"></i>${escape(language)}</span><span title="Stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m8 1.2 2 4.1 4.5.7-3.25 3.2.77 4.5L8 11.6l-4.02 2.1.77-4.5L1.5 6l4.5-.7z"/></svg>${Number(repo.stargazers_count) || 0}</span><span title="Forks"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 3v6c0 2 2 2 4 2h3m0 0-2-2m2 2-2 2M4 3h.1M4 12h.1" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>${Number(repo.forks_count) || 0}</span><span class="meta-updated">UPDATED ${escape(shortDate(repo.updated_at))}</span></div>
-      <div class="card-actions"><a href="${escape(repoUrl)}" target="_blank" rel="noreferrer">Repository <span aria-hidden="true">↗</span></a>${homepage ? `<a href="${escape(homepage)}" target="_blank" rel="noreferrer">Live demo <span aria-hidden="true">↗</span></a>` : `<span class="no-demo">No demo link</span>`}</div></div>`;
+    card.className = `project-card ${repo.name === "rewind" ? "project-featured" : ""}`;
+    const description = repo.description || "No description provided by the repository owner.";
+    card.innerHTML = `${artMarkup(repo)}<div class="card-content"><div class="card-overline"><span class="language-label">${escape(language)}</span><span class="repo-state">${repo.fork ? "FORK" : "PUBLIC"}${repo.archived ? " · ARCHIVED" : ""}</span></div><h3><a href="${escape(repoUrl(repo))}" target="_blank" rel="noopener noreferrer">${escape(repo.name)} <span aria-hidden="true">↗</span></a></h3><p class="card-description">${escape(description)}</p><div class="topic-row">${topics.length ? topics.map((topic) => `<span>${escape(topic)}</span>`).join("") : `<span>${escape(language)}</span>`}</div><div class="repo-metrics"><span title="Stars">★ ${readable(repo.stargazers_count)}</span><span title="Forks">⑂ ${readable(repo.forks_count)}</span><span class="updated">UPDATED ${escape(formatDate(repo.updated_at))}</span></div><div class="card-links"><a href="${escape(repoUrl(repo))}" target="_blank" rel="noopener noreferrer">View repository <span aria-hidden="true">↗</span></a>${homepage ? `<a href="${escape(homepage)}" target="_blank" rel="noopener noreferrer">Live project <span aria-hidden="true">↗</span></a>` : ""}</div></div>`;
     return card;
   }
-
-  function availableLanguages() {
-    return [...new Set(repositories.map((repo) => repo.language).filter(Boolean))].sort((a, b) => a.localeCompare(b));
+  function countsByLanguage() {
+    return repositories.reduce((counts, repo) => { if (repo.language) counts[repo.language] = (counts[repo.language] || 0) + 1; return counts; }, {});
   }
-
+  function availableTopics() {
+    const counts = new Map();
+    repositories.forEach((repo) => (repo.topics || []).forEach((topic) => counts.set(topic, (counts.get(topic) || 0) + 1)));
+    return [...counts].filter(([, count]) => count > 1).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])).slice(0, 4);
+  }
   function buildFilters() {
-    const langs = availableLanguages();
-    const topics = [...new Set(repositories.flatMap((repo) => repo.topics || []))]
-      .map((topic) => ({ topic, count: repositories.filter((repo) => (repo.topics || []).includes(topic)).length }))
-      .filter(({ count }) => count > 1)
-      .sort((a, b) => b.count - a.count || a.topic.localeCompare(b.topic))
-      .slice(0, 4);
-    filters.innerHTML = `<button class="filter-chip ${selected === "all" ? "active" : ""}" data-filter="all" aria-pressed="${selected === "all"}">Everything <span id="filter-all-count">${repositories.length}</span></button>${langs.map((language) => `<button class="filter-chip ${selected === language ? "active" : ""}" data-filter="${escape(language)}" aria-pressed="${selected === language}">${escape(language)} <span>${repositories.filter((repo) => repo.language === language).length}</span></button>`).join("")}${topics.map(({ topic, count }) => `<button class="filter-chip topic-chip ${selected === topic ? "active" : ""}" data-filter="${escape(topic)}" aria-pressed="${selected === topic}">${escape(topic)} <span>${count}</span></button>`).join("")}`;
-    document.querySelectorAll(".quick-link[data-filter]").forEach((link) => {
-      const available = langs.includes(link.dataset.filter) || link.dataset.filter === "all";
-      link.hidden = !available;
-    });
+    const languages = countsByLanguage();
+    const sortedLanguages = Object.keys(languages).sort((a, b) => a.localeCompare(b));
+    const topics = availableTopics();
+    filters.innerHTML = `<button class="filter-chip ${selected === "all" ? "active" : ""}" type="button" data-filter="all" aria-pressed="${selected === "all"}">Everything <span id="filter-all-count">${repositories.length}</span></button>${sortedLanguages.map((lang) => `<button class="filter-chip ${selected === lang ? "active" : ""}" type="button" data-filter="${escape(lang)}" aria-pressed="${selected === lang}">${escape(lang)} <span>${languages[lang]}</span></button>`).join("")}${topics.map(([topic, count]) => `<button class="filter-chip ${selected === topic ? "active" : ""}" type="button" data-filter="${escape(topic)}" aria-pressed="${selected === topic}">${escape(topic)} <span>${count}</span></button>`).join("")}`;
     $("#all-count").textContent = repositories.length;
-    $("#filter-all-count").textContent = repositories.length;
+    const category = $("#hero-categories");
+    category.innerHTML = `<button class="category-link ${selected === "all" ? "selected" : ""}" type="button" data-filter="all"><span class="category-symbol orange">✳</span><span>All projects</span><b>${repositories.length}</b></button>${sortedLanguages.map((lang, i) => `<button class="category-link ${selected === lang ? "selected" : ""}" type="button" data-filter="${escape(lang)}"><span class="category-symbol ${["red", "blue", "pink", "green"][i % 4]}">${escape(lang.slice(0, 2))}</span><span>${escape(lang)} projects</span><b>${languages[lang]}</b></button>`).join("")}${topics.slice(0, 2).map(([topic, count]) => `<button class="category-link ${selected === topic ? "selected" : ""}" type="button" data-filter="${escape(topic)}"><span class="category-symbol yellow">#</span><span>${escape(topic)}</span><b>${count}</b></button>`).join("")}`;
+    const tileClass = ["stack-rust", "stack-python", "stack-ts", "stack-topics", "stack-more"];
+    const tileIcon = { Rust: "R", Python: "Py", TypeScript: "TS", HTML: "<>" };
+    $("#language-tiles").innerHTML = sortedLanguages.slice(0, 4).map((lang, index) => `<button class="stack-tile ${tileClass[index % tileClass.length]} ${selected === lang ? "selected" : ""}" type="button" data-filter="${escape(lang)}"><span>${escape(tileIcon[lang] || lang.slice(0, 2).toUpperCase())}</span><b>${escape(lang)} projects</b><small>${languages[lang]} ${languages[lang] === 1 ? "repository" : "repositories"} <i aria-hidden="true">↗</i></small></button>`).join("") + topics.slice(0, 1).map(([topic, count]) => `<button class="stack-tile stack-topics ${selected === topic ? "selected" : ""}" type="button" data-filter="${escape(topic)}"><span>#</span><b>${escape(topic)}</b><small>${count} tagged repositories <i aria-hidden="true">↗</i></small></button>`).join("");
+    document.querySelectorAll("[data-filter]").forEach((item) => {
+      if (item.dataset.filter === selected) item.setAttribute("aria-pressed", "true");
+      else if (item.matches("button")) item.setAttribute("aria-pressed", "false");
+      item.classList.toggle("active", item.dataset.filter === selected && item.classList.contains("nav-link"));
+      item.classList.toggle("selected", item.dataset.filter === selected && item.matches(".category-link, .stack-tile"));
+    });
   }
-
   function selectedRepos() {
     const query = search.value.trim().toLowerCase();
     const sort = $("#sort").value;
-    const result = repositories.filter((repo) => {
-      const matchesLanguage = selected === "all" || repo.language === selected || (repo.topics || []).includes(selected);
+    return repositories.filter((repo) => {
+      const matchesCategory = selected === "all" || repo.language === selected || (repo.topics || []).includes(selected);
       const haystack = [repo.name, repo.description, repo.language, ...(repo.topics || [])].join(" ").toLowerCase();
-      return matchesLanguage && (!query || haystack.includes(query));
-    });
-    result.sort((a, b) => sort === "stars" ? (b.stargazers_count || 0) - (a.stargazers_count || 0) : sort === "name" ? a.name.localeCompare(b.name) : new Date(b.updated_at) - new Date(a.updated_at));
-    return result;
+      return matchesCategory && (!query || haystack.includes(query));
+    }).sort((a, b) => sort === "stars" ? (b.stargazers_count || 0) - (a.stargazers_count || 0) : sort === "name" ? a.name.localeCompare(b.name) : new Date(b.updated_at || 0) - new Date(a.updated_at || 0));
   }
-
   function render() {
-    const result = selectedRepos();
+    const results = selectedRepos();
     grid.innerHTML = "";
-    result.forEach((repo, index) => grid.appendChild(createCard(repo, index)));
-    grid.hidden = result.length === 0;
-    $("#empty-state").hidden = result.length !== 0;
-    $("#result-count").textContent = result.length;
-    status.textContent = `Showing ${result.length} of ${repositories.length} public projects${selected !== "all" ? ` · ${selected}` : ""}${search.value.trim() ? ` · “${search.value.trim()}”` : ""}`;
+    results.forEach((repo) => grid.appendChild(createCard(repo)));
+    grid.hidden = !results.length;
+    $("#empty-state").hidden = Boolean(results.length);
+    $("#result-count").textContent = results.length;
+    status.textContent = `Showing ${results.length} of ${repositories.length} public projects${selected !== "all" ? ` · ${selected}` : ""}${search.value.trim() ? ` · “${search.value.trim()}”` : ""}`;
   }
-
-  function setRepos(items, source) {
-    repositories = validRepos(items).filter((repo) => repo.name !== "");
-    buildFilters();
-    render();
-    status.dataset.source = source;
-    if (source === "snapshot") status.textContent += " · saved snapshot";
+  function updateHighlights() {
+    const latest = repositories.slice().sort((a, b) => new Date(b.updated_at || 0) - new Date(a.updated_at || 0))[0];
+    const standout = repositories.find((repo) => repo.name === "rewind") || latest;
+    if (latest) {
+      $("#latest-name").textContent = latest.name;
+      $("#latest-description").textContent = latest.description || "No description provided by the repository owner.";
+      $("#latest-language").textContent = latest.language || "Unspecified";
+      $("#latest-updated").textContent = formatDate(latest.updated_at).toUpperCase();
+      $("#latest-link").href = repoUrl(latest);
+    }
+    if (standout) {
+      const link = $(".campaign-button");
+      link.href = repoUrl(standout);
+      if (standout.name !== "rewind") link.textContent = `Explore ${standout.name} ↗`;
+    }
+    const languages = Object.keys(countsByLanguage()).length;
+    $("#profile-languages").textContent = languages;
+    $("#profile-repos").textContent = repositories.length;
   }
-
   async function fetchJSON(url, timeout = 6500) {
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), timeout);
@@ -112,77 +134,58 @@
       return await response.json();
     } finally { clearTimeout(timer); }
   }
-
   async function loadRepos() {
-    try {
-      const live = await fetchJSON(REPOS_API);
-      setRepos(live, "live");
-    } catch (liveError) {
-      try {
-        const fallback = await fetchJSON("repos.json");
-        setRepos(fallback, "snapshot");
-      } catch (snapshotError) {
+    try { setRepos(await fetchJSON(REPOS_API), "live"); }
+    catch (liveError) {
+      try { setRepos(await fetchJSON("repos.json"), "snapshot"); }
+      catch (snapshotError) {
         const describe = (error) => error?.name === "AbortError" ? "request timed out" : error?.message || "request failed";
         console.error("Repository API and snapshot both failed", { liveError, snapshotError });
         status.textContent = `GitHub API: ${describe(liveError)} · local snapshot: ${describe(snapshotError)}`;
         status.classList.add("is-error");
         grid.setAttribute("aria-busy", "false");
         $("#empty-state").hidden = false;
-        $("#empty-state h3").textContent = "Shelf’s offline";
-        $("#empty-state p").innerHTML = '<a href="https://github.com/janghotan?tab=repositories" target="_blank" rel="noreferrer">Open the public repositories on GitHub ↗</a>';
+        $("#empty-state h3").textContent = "Project list unavailable";
+        $("#empty-state p").innerHTML = '<a href="https://github.com/janghotan?tab=repositories" target="_blank" rel="noopener noreferrer">Open Jangho’s public repositories on GitHub ↗</a>';
       }
     } finally { grid.setAttribute("aria-busy", "false"); }
   }
-
+  function setRepos(items, source) {
+    repositories = validRepos(items).filter((repo) => repo.name);
+    buildFilters();
+    updateHighlights();
+    render();
+    status.dataset.source = source;
+  }
   async function loadProfile() {
     try {
-      const profile = await fetchJSON(PROFILE_API, 5000);
+      let profile;
+      try { profile = await fetchJSON(PROFILE_API, 5000); }
+      catch { profile = await fetchJSON("profile.json", 5000); }
       if (profile.login?.toLowerCase() !== USER) return;
-      if (profile.avatar_url) {
-        $("#header-avatar").src = profile.avatar_url;
-        $("#profile-avatar").src = profile.avatar_url;
-      }
+      if (profile.avatar_url) { $("#header-avatar").src = profile.avatar_url; $("#profile-avatar").src = profile.avatar_url; }
       if (profile.bio) $("#profile-bio").textContent = profile.bio;
-      $("#profile-repos").textContent = Number.isFinite(profile.public_repos) ? profile.public_repos : "—";
+      $("#profile-repos").textContent = Number.isFinite(profile.public_repos) ? profile.public_repos : repositories.length;
       $("#profile-followers").textContent = Number.isFinite(profile.followers) ? profile.followers : "—";
-    } catch {
-      try {
-        const profile = await fetchJSON("profile.json");
-        if (profile.login?.toLowerCase() === USER) {
-          if (profile.avatar_url) $("#profile-avatar").src = profile.avatar_url;
-          if (profile.bio) $("#profile-bio").textContent = profile.bio;
-          $("#profile-repos").textContent = Number.isFinite(profile.public_repos) ? profile.public_repos : "—";
-          $("#profile-followers").textContent = Number.isFinite(profile.followers) ? profile.followers : "—";
-        }
-      } catch { /* The profile snapshot is optional; the identity remains usable. */ }
-    }
+    } catch { /* The profile snapshot is optional; the linked identity remains usable. */ }
   }
-
+  function chooseFilter(value) {
+    selected = value || "all";
+    buildFilters();
+    render();
+  }
   search.addEventListener("input", render);
-  $("#search-form").addEventListener("submit", (event) => { event.preventDefault(); $("#projects").scrollIntoView({ behavior: "smooth" }); });
-  filters.addEventListener("click", (event) => {
-    const button = event.target.closest("button[data-filter]");
-    if (!button) return;
-    selected = button.dataset.filter;
-    buildFilters();
-    render();
+  $("#search-form").addEventListener("submit", (event) => { event.preventDefault(); $("#projects").scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" }); });
+  document.addEventListener("click", (event) => {
+    const filter = event.target.closest("[data-filter]");
+    if (filter) { event.preventDefault(); chooseFilter(filter.dataset.filter); $("#projects").scrollIntoView({ behavior: "smooth" }); return; }
+    const suggestion = event.target.closest("[data-search]");
+    if (suggestion) { search.value = suggestion.dataset.search; render(); search.focus(); }
   });
-  document.querySelectorAll(".quick-link[data-filter]").forEach((link) => link.addEventListener("click", () => {
-    selected = link.dataset.filter;
-    buildFilters();
-    render();
-  }));
   $("#sort").addEventListener("change", render);
-  function clearFilters() { selected = "all"; search.value = ""; buildFilters(); render(); }
-  $("#clear-filters").addEventListener("click", clearFilters);
-  $("#clear-empty").addEventListener("click", () => { clearFilters(); search.focus(); });
+  $("#clear-filters").addEventListener("click", () => { search.value = ""; chooseFilter("all"); });
+  $("#clear-empty").addEventListener("click", () => { search.value = ""; chooseFilter("all"); });
   $("#year").textContent = new Date().getFullYear();
-
-  const languages = new Set();
-  fetchJSON("repos.json").then(validRepos).then((repos) => {
-    repos.forEach((repo) => { if (repo.language) languages.add(repo.language); });
-    $("#profile-languages").textContent = languages.size || "—";
-  }).catch(() => {});
   loadRepos();
   loadProfile();
 })();

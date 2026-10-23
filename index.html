@@ -3,52 +3,180 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#fff8ed">
-  <meta name="description" content="Jangho Tan builds AI agent tools, developer utilities, and security-minded software. Browse the public project shelf.">
-  <meta property="og:title" content="Jangho Tan — little tools, serious intent">
-  <meta property="og:description" content="A colorful corner for public software by Jangho Tan.">
+  <meta name="theme-color" content="#f4511e">
+  <meta name="description" content="Explore Jangho Tan’s public software projects: developer tools, AI agent workflows, and security-minded utilities.">
+  <meta property="og:title" content="Jangho Tan — project market">
+  <meta property="og:description" content="A lively shelf of real tools, public repos, and little builds.">
   <meta property="og:image" content="https://janghotan.github.io/assets/og.svg">
-  <title>Jangho Tan — little tools, serious intent</title>
+  <title>Jangho Tan — project market</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=2">
-  <script defer src="app.js?v=3"></script>
+  <link rel="stylesheet" href="style.css?v=3">
+  <script defer src="app.js?v=4"></script>
 </head>
 <body>
-  <a class="skip-link" href="#projects">Skip to the project shelf</a>
-  <div class="ticker" aria-label="Site announcement"><div class="ticker-inner"><span>GOOD TOOLS, SMALL FOOTPRINT</span><i aria-hidden="true">✳</i><span>PUBLIC REPOS, BUILT IN PUBLIC</span><i aria-hidden="true">✳</i><span>GOOD TOOLS, SMALL FOOTPRINT</span><i aria-hidden="true">✳</i><span>PUBLIC REPOS, BUILT IN PUBLIC</span></div></div>
-  <header class="site-header" id="top">
-    <div class="utility"><a href="#top">Home</a><a href="#projects">Project shelf</a><a href="#about">About</a><a href="https://github.com/janghotan" target="_blank" rel="noreferrer">GitHub ↗</a><a href="https://github.com/janghotan" class="utility-contact" target="_blank" rel="noreferrer">Connect on GitHub ↗</a></div>
-    <div class="brand-row">
-      <a class="wordmark" href="#top" aria-label="Jangho Tan, home"><span class="mark" aria-hidden="true">JT<span>✳</span></span><span>jangho<span class="wordmark-dot">.</span>works<small>A LITTLE INTERNET CORNER</small></span></a>
-      <form class="search" id="search-form" role="search"><label class="visually-hidden" for="search">Search public projects</label><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.5"/><path d="m16 16 4.2 4.2"/></svg><input id="search" type="search" placeholder="Find a tool, language, little idea…" autocomplete="off"><button type="submit">Search</button></form>
-      <a class="identity-link" href="https://github.com/janghotan" target="_blank" rel="noreferrer"><img id="header-avatar" src="https://avatars.githubusercontent.com/u/334624260?v=4" alt="" width="38" height="38"><span><b>@janghotan</b><small>on GitHub ↗</small></span></a>
+  <a class="skip-link" href="#projects">Skip to project discovery</a>
+
+  <div class="utility-bar">
+    <div class="utility-inner page-width">
+      <nav class="utility-links" aria-label="Utility navigation">
+        <a href="#top">Home</a>
+        <a href="#projects">Projects</a>
+        <a href="#about">About Jangho</a>
+        <a href="https://github.com/janghotan" target="_blank" rel="noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+      </nav>
+      <a class="utility-note" href="https://github.com/janghotan?tab=repositories" target="_blank" rel="noreferrer">
+        <span class="pulse-dot" aria-hidden="true"></span> Public work, straight from GitHub <span aria-hidden="true">→</span>
+      </a>
     </div>
-    <nav class="quick-nav" aria-label="Project categories"><span class="nav-caption">TAKE A LOOK</span><a href="#projects" data-filter="all" class="quick-link active">Everything <b id="all-count">—</b></a><span class="nav-separator">/</span><a href="#projects" data-filter="Rust" class="quick-link">Rust tools</a><span class="nav-separator">/</span><a href="#projects" data-filter="Python" class="quick-link">Python bits</a><span class="nav-separator">/</span><a href="#projects" data-filter="TypeScript" class="quick-link">TypeScript</a><span class="nav-spacer"></span><a href="https://github.com/janghotan?tab=repositories" target="_blank" rel="noreferrer" class="all-github">All repositories <span aria-hidden="true">↗</span></a></nav>
+  </div>
+
+  <header class="masthead" id="top">
+    <div class="masthead-main page-width">
+      <a class="brand" href="#top" aria-label="Jangho Tan project market home">
+        <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M13 12h9v24h-9zm13 0h9v24h-9z"/><path class="brand-flare" d="m39 4 2.2 5.1L46 11l-4.8 2-2.2 5-2-5-5-2 5-1.9z"/></svg></span>
+        <span class="brand-type"><strong>Jangho Tan</strong><small>THE PROJECT MARKET</small></span>
+      </a>
+
+      <form class="search-box" id="search-form" role="search">
+        <label class="visually-hidden" for="search">Search public projects</label>
+        <svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.7" cy="10.7" r="6.8"/><path d="m16 16 4.3 4.3"/></svg>
+        <input id="search" type="search" placeholder="Search tools, languages, topics…" autocomplete="off">
+        <button type="submit">Search <span aria-hidden="true">⌕</span></button>
+      </form>
+
+      <a class="github-identity" href="https://github.com/janghotan" target="_blank" rel="noreferrer">
+        <img id="header-avatar" src="https://avatars.githubusercontent.com/u/334624260?v=4" alt="" width="42" height="42">
+        <span><strong>@janghotan</strong><small>View profile <span aria-hidden="true">↗</span></small></span>
+      </a>
+    </div>
+
+    <div class="search-hints page-width" id="search-suggestions" aria-label="Search suggestions">
+      <span>TRY:</span><button type="button" data-search="rewind">rewind</button><button type="button" data-search="Python">Python</button><button type="button" data-search="CLI">CLI tools</button>
+    </div>
+
+    <nav class="primary-nav" aria-label="Main project navigation">
+      <div class="primary-nav-inner page-width">
+        <a class="nav-category" href="#projects"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14"/></svg>Browse builds</a>
+        <a href="#projects" data-filter="all" class="nav-link active">All projects <span id="all-count">7</span></a>
+        <a href="#projects" data-filter="Rust" class="nav-link">Rust</a>
+        <a href="#projects" data-filter="Python" class="nav-link">Python</a>
+        <a href="#projects" data-filter="TypeScript" class="nav-link">TypeScript</a>
+        <span class="nav-spacer"></span>
+        <a href="#about" class="nav-link nav-about">Meet the maker <span aria-hidden="true">→</span></a>
+      </div>
+    </nav>
   </header>
 
   <main>
-    <section class="hero wrap" aria-labelledby="hero-title">
-      <div class="hero-copy"><p class="hero-kicker"><span class="live-dot"></span> A WORKBENCH FOR USEFUL THINGS</p><h1 id="hero-title">Little tools.<br><span>Serious intent.</span></h1><p class="hero-intro">I’m Jangho — building AI agent tools and small utilities with a security-minded streak. Browse what’s on the bench.</p><a class="hero-cta" href="#projects">Browse the project shelf <span aria-hidden="true">↓</span></a><div class="hero-meta"><span>INDEPENDENT BUILDER</span><b>·</b><span>PUBLIC WORK, LIVE FROM GITHUB</span></div></div>
-      <div class="hero-art" role="img" aria-label="Illustration of a tiny toolbox for useful command line utilities"><div class="sunburst" aria-hidden="true"></div><div class="sticker sticker-top">MADE TO<br>DO A THING</div><div class="toolbox"><div class="toolbox-handle"></div><div class="toolbox-label"><span class="toolbox-symbol">&gt;_</span><span>useful<br>stuff</span></div><div class="toolbox-slots"><i></i><i></i><i></i></div><div class="toolbox-screw"></div></div><div class="orbit orbit-a">LESS FUSS • MORE SIGNAL</div><div class="sticker sticker-bottom">NO FAKE<br>METRICS ↗</div><span class="spark spark-one" aria-hidden="true">✳</span><span class="spark spark-two" aria-hidden="true">✦</span><span class="doodle-arrow" aria-hidden="true">↘</span></div>
-      <div class="hero-footnote"><span>SCROLL AROUND</span><span class="down-line" aria-hidden="true"></span><span>THE SHELF UPDATES FROM PUBLIC GITHUB DATA</span></div>
+    <section class="market-hero page-width" aria-label="Featured projects and discovery">
+      <aside class="category-rail" aria-labelledby="rail-title">
+        <div class="rail-heading"><span class="rail-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4zM8 9h8M8 13h5"/></svg></span><h2 id="rail-title">Browse the shelf</h2></div>
+        <div class="category-list" id="hero-categories">
+          <button class="category-link selected" type="button" data-filter="all"><span class="category-symbol orange">✳</span><span>All projects</span><b>7</b></button>
+          <button class="category-link" type="button" data-filter="Rust"><span class="category-symbol red">R</span><span>Rust utilities</span><b>1</b></button>
+          <button class="category-link" type="button" data-filter="Python"><span class="category-symbol blue">Py</span><span>Python tools</span><b>3</b></button>
+          <button class="category-link" type="button" data-filter="TypeScript"><span class="category-symbol pink">TS</span><span>Agent tooling</span><b>1</b></button>
+        </div>
+        <div class="rail-bottom">
+          <p>SMALL TOOLS, REAL REPOS</p>
+          <a href="https://github.com/janghotan?tab=repositories" target="_blank" rel="noreferrer">Open the full GitHub shelf <span aria-hidden="true">↗</span></a>
+        </div>
+      </aside>
+
+      <div class="campaign-column">
+        <article class="campaign-main" aria-labelledby="campaign-title">
+          <div class="campaign-copy">
+            <div class="campaign-kickers"><span class="campaign-tag">FEATURED PROJECT</span><span class="campaign-public">PUBLIC REPO <i aria-hidden="true"></i></span></div>
+            <h1 id="campaign-title">Undo the command.<br><em>Keep the work.</em></h1>
+            <p>rewind gives destructive shell commands an undo stack. One static Rust binary, with bash, zsh, and fish hooks.</p>
+            <div class="campaign-actions"><a class="campaign-button" href="https://github.com/janghotan/rewind" target="_blank" rel="noreferrer">Explore rewind <span aria-hidden="true">↗</span></a><a class="campaign-secondary" href="#projects">Discover all tools <span aria-hidden="true">↓</span></a></div>
+            <div class="campaign-foot"><span>RM</span><span>MV</span><span>CP</span><span>GIT RESET</span><span class="foot-accent">UNDO, WHEN YOU NEED IT</span></div>
+          </div>
+          <div class="campaign-art" role="img" aria-label="Example from rewind’s README showing a removed src folder being restored with rewind undo">
+            <div class="art-sticker sticker-yellow">COMMAND<br>TAKEBACK</div>
+            <div class="terminal-card">
+              <div class="terminal-head"><span class="terminal-lights"><i></i><i></i><i></i></span><b>shell session</b><span>rewind</span></div>
+              <div class="terminal-output"><p><span class="prompt">$</span> rm -rf src/</p><p class="terminal-dim">…not gone for good</p><p><span class="prompt">$</span> rewind undo</p><p class="terminal-success">rewind: undone #1 rm -rf src/</p><p><span class="prompt">$</span> ls <span class="terminal-cursor"></span></p><p class="terminal-result">src/</p></div>
+            </div>
+            <svg class="campaign-spark" viewBox="0 0 72 72" aria-hidden="true"><path d="M36 2 43 26 66 15 50 35 70 49 45 47 42 71 33 49 10 61 24 40 3 27 28 29z"/></svg>
+            <span class="art-caption">A SECOND CHANCE FOR THE SHELL</span>
+          </div>
+        </article>
+
+        <div class="campaign-side-grid">
+          <article class="mini-project packet-promo">
+            <div class="mini-copy"><span class="mini-overline">PACKET INSPECTION / PYTHON</span><h2>micro-dump</h2><p>See headers. Keep payloads out of view.</p><a href="https://github.com/janghotan/micro-dump" target="_blank" rel="noreferrer">Explore project <span aria-hidden="true">↗</span></a></div>
+            <div class="packet-visual" aria-hidden="true"><div class="packet-grid"><span>ETH</span><span>IPV6</span><span>TCP</span><span class="payload">PAYLOAD<br>HIDDEN</span></div><div class="waveform"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><span class="wave-label">PCAP / HEADER VIEW</span></div>
+          </article>
+          <article class="mini-project profile-promo" id="about">
+            <div class="profile-promo-head"><span>THE MAKER</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></div>
+            <div class="profile-promo-main"><img id="profile-avatar" src="https://avatars.githubusercontent.com/u/334624260?v=4" alt="Jangho Tan’s GitHub avatar" width="54" height="54" loading="lazy"><div><h2>Jangho Tan</h2><a href="https://github.com/janghotan" target="_blank" rel="noreferrer">@janghotan on GitHub ↗</a></div></div>
+            <p id="profile-bio">Building AI agents &amp; LLM apps. Ex-security, still paranoid about guardrails.</p>
+            <div class="profile-promo-stats"><span><b id="profile-repos">9</b> public repos</span><span><b id="profile-followers">0</b> followers</span><span><b id="profile-languages">4</b> languages</span></div>
+          </article>
+        </div>
+      </div>
+
+      <aside class="market-aside" aria-label="Latest build and links">
+        <div class="latest-panel">
+          <div class="latest-top"><span>LATEST BUILDS</span><span class="latest-bolt" aria-hidden="true">↗</span></div>
+          <p class="latest-eyebrow">JUST UPDATED</p>
+          <h2 id="latest-name">rewind</h2>
+          <p id="latest-description">Universal undo for destructive shell commands.</p>
+          <div class="latest-meta"><span id="latest-language">Rust</span><span id="latest-updated">FROM GITHUB</span></div>
+          <a id="latest-link" href="https://github.com/janghotan/rewind" target="_blank" rel="noreferrer">Open repository <span aria-hidden="true">↗</span></a>
+          <div class="latest-orbit" aria-hidden="true"><i></i><i></i><i></i><b>&gt;_</b></div>
+        </div>
+        <div class="market-note">
+          <span class="note-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3v18M3 12h18M5.6 5.6l12.8 12.8m0-12.8L5.6 18.4"/></svg></span>
+          <div><strong>TOOLS, NOT TRENDS</strong><p>Project details, counts, and links come from public GitHub data.</p></div>
+        </div>
+      </aside>
     </section>
 
-    <section class="spotlight wrap" aria-labelledby="spotlight-heading"><div class="section-heading"><div><p class="section-kicker">FRESH OFF THE BENCH</p><h2 id="spotlight-heading">A couple worth a closer look<span> ✳</span></h2></div><a href="#projects" class="text-link">See the whole shelf <span>→</span></a></div><div class="featured-grid" id="featured"><article class="feature feature-orange"><div class="feature-visual visual-rewind" aria-hidden="true"><div class="rewind-window"><div class="window-top"><i></i><i></i><i></i><b>shell, but safer</b></div><div class="terminal-lines"><span><i>$</i> rm -rf ./important</span><span class="warning">↳ wait. undo is ready.</span><span><i>$</i> rewind --undo</span><span class="success">✓ files are back</span></div></div><span class="visual-sticker">UNDO THAT</span></div><div class="feature-content"><div class="feature-overline"><span>FEATURED TOOL</span><span class="feature-burst" aria-hidden="true">✳</span></div><h3><a href="https://github.com/janghotan/rewind" target="_blank" rel="noreferrer">rewind</a></h3><p>Universal undo for destructive shell commands — rm, mv, cp, chmod, chown, and git reset/clean/checkout/restore.</p><div class="feature-tags"><span>Rust</span><span>Command line</span><span>Safety</span></div><a class="feature-go" href="https://github.com/janghotan/rewind" target="_blank" rel="noreferrer">Explore on GitHub <span>↗</span></a><a class="feature-demo" href="https://janghotan.github.io/apt/" target="_blank" rel="noreferrer">APT install source ↗</a></div></article>
-      <article class="feature feature-blue"><div class="feature-visual visual-dump" aria-hidden="true"><div class="packet-card"><div class="packet-top"><span>PACKET VIEW</span><span>PCAP</span></div><div class="packet-wave"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="packet-readout"><b>TCP</b><span>192.168.1.4</span><span>→</span><span>10.0.0.8</span></div></div><span class="packet-sticker">LOOK<br>CLOSER</span></div><div class="feature-content"><div class="feature-overline"><span>PACKET-SIZED CLARITY</span><span class="feature-burst">↗</span></div><h3><a href="https://github.com/janghotan/micro-dump" target="_blank" rel="noreferrer">micro-dump</a></h3><p>Linux packet inspection CLI with a terminal UI, classic PCAP replay, and header-only decoding.</p><div class="feature-tags"><span>Python</span><span>Networking</span><span>Terminal UI</span></div><a class="feature-go" href="https://github.com/janghotan/micro-dump" target="_blank" rel="noreferrer">Explore on GitHub <span>↗</span></a></div></article></div></section>
-
-    <div class="ribbon" aria-hidden="true"><div>SOFTWARE, WITHOUT THE SALES PITCH <b>✳</b> LITTLE REPOS, REAL DETAILS <b>✳</b> MADE FOR THE TERMINAL & BEYOND <b>✳</b> SOFTWARE, WITHOUT THE SALES PITCH <b>✳</b> LITTLE REPOS, REAL DETAILS <b>✳</b></div></div>
-
-    <section id="projects" class="catalog wrap" aria-labelledby="catalog-title"><div class="section-heading catalog-heading"><div><p class="section-kicker">THE PROJECT MARKET</p><h2 id="catalog-title">Pick a little project<span> ↓</span></h2><p class="catalog-sub">Real public repos from <a href="https://github.com/janghotan" target="_blank" rel="noreferrer">@janghotan</a>. No pretend pricing, just useful bits.</p></div><div class="catalog-counter"><strong id="result-count">—</strong><span>PROJECTS ON<br>THE SHELF</span></div></div>
-      <div class="catalog-tools"><div class="filter-row" id="filters" aria-label="Filter projects by language or topic"><button class="filter-chip active" data-filter="all" aria-pressed="true">Everything <span id="filter-all-count">—</span></button></div><div class="catalog-controls"><button class="clear-filters" id="clear-filters" type="button">Clear filters</button><label class="sort-control">SORT BY <select id="sort"><option value="updated">Recently updated</option><option value="stars">Most starred</option><option value="name">Name A–Z</option></select></label></div></div>
-      <div class="catalog-status" id="catalog-status" role="status" aria-live="polite">Fetching public projects…</div><div class="project-grid" id="project-grid" aria-busy="true"></div><div class="empty-state" id="empty-state" hidden><span aria-hidden="true">⌕</span><h3>No projects found</h3><p>Try another search or clear the selected filters.</p><button id="clear-empty">Clear filters</button></div>
+    <section class="stack-strip page-width" aria-labelledby="stack-heading">
+      <div class="stack-title"><span class="stack-eyebrow">FIND YOUR STACK</span><h2 id="stack-heading">Pick a lane</h2></div>
+      <div class="stack-tiles" id="language-tiles">
+        <button class="stack-tile stack-rust" type="button" data-filter="Rust"><span>RUST</span><b>Rust tools</b><small>1 project <i aria-hidden="true">↗</i></small></button>
+        <button class="stack-tile stack-python" type="button" data-filter="Python"><span>PY</span><b>Python tools</b><small>3 projects <i aria-hidden="true">↗</i></small></button>
+        <button class="stack-tile stack-ts" type="button" data-filter="TypeScript"><span>TS</span><b>Agent tooling</b><small>1 project <i aria-hidden="true">↗</i></small></button>
+        <button class="stack-tile stack-topics" type="button" data-filter="cli"><span>CLI</span><b>Terminal favorites</b><small>2 tagged projects <i aria-hidden="true">↗</i></small></button>
+      </div>
+      <a class="stack-all" href="#projects">All stacks <span aria-hidden="true">→</span></a>
     </section>
 
-    <section id="about" class="about wrap" aria-labelledby="about-title"><div class="about-card"><div class="about-profile"><img id="profile-avatar" src="https://avatars.githubusercontent.com/u/334624260?v=4" alt="Jangho Tan’s GitHub avatar" width="76" height="76" loading="lazy"><div><p class="section-kicker">THE PERSON AT THE KEYBOARD</p><h2 id="about-title">Hey, I’m Jangho<span>.</span></h2><a href="https://github.com/janghotan" id="profile-link" target="_blank" rel="noreferrer">@janghotan on GitHub ↗</a></div></div><p class="about-bio" id="profile-bio">Building AI agents &amp; LLM apps. Ex-security, still paranoid about guardrails.</p><div class="about-stats"><div><strong id="profile-repos">9</strong><span>PUBLIC REPOS</span></div><div><strong id="profile-followers">0</strong><span>FOLLOWERS</span></div><div><strong id="profile-languages">4</strong><span>LANGUAGES ON SHELF</span></div></div><div class="about-note"><span aria-hidden="true">✳</span><p>Every card links to its real repository. Profile numbers use live public GitHub data when available; the saved profile snapshot was checked 23 Oct 2026.</p></div></div><div class="about-aside"><div class="aside-stamp">A NOTE FROM THE BENCH</div><h3>Make it handy.<br>Make it honest.</h3><p>Small utilities can make a messy workflow calmer. That’s the kind of software I like making.</p><a href="https://github.com/janghotan" target="_blank" rel="noreferrer">Wander through GitHub <span>↗</span></a><div class="aside-scribble" aria-hidden="true">J.T.</div></div></section>
+    <section id="projects" class="discovery page-width" aria-labelledby="projects-title">
+      <header class="discovery-header">
+        <div class="discovery-title"><div class="discovery-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4zM8 9h8M8 13h8M8 16h4"/></svg></div><div><p class="discovery-kicker">TOOL DISCOVERY</p><h2 id="projects-title">Browse the latest projects</h2><p>Public repositories by Jangho Tan, with the details GitHub provides.</p></div></div>
+        <div class="discovery-count"><strong id="result-count">7</strong><span>PUBLIC PROJECTS</span></div>
+      </header>
+
+      <div class="discovery-toolbar">
+        <div class="filter-row" id="filters" aria-label="Filter projects by language or topic">
+          <button class="filter-chip active" type="button" data-filter="all" aria-pressed="true">All projects <span id="filter-all-count">7</span></button>
+          <button class="filter-chip" type="button" data-filter="Rust" aria-pressed="false">Rust</button>
+          <button class="filter-chip" type="button" data-filter="Python" aria-pressed="false">Python</button>
+          <button class="filter-chip" type="button" data-filter="cli" aria-pressed="false">CLI</button>
+        </div>
+        <div class="toolbar-actions"><button class="clear-filters" id="clear-filters" type="button">Reset filters</button><label class="sort-control">SORT <select id="sort"><option value="updated">Recently updated</option><option value="stars">Most starred</option><option value="name">Name A–Z</option></select></label></div>
+      </div>
+      <p class="catalog-status" id="catalog-status" role="status" aria-live="polite">Loading public repositories…</p>
+      <div class="project-grid" id="project-grid" aria-busy="true"></div>
+      <div class="empty-state" id="empty-state" hidden><span class="empty-icon" aria-hidden="true">⌕</span><h3>No projects match that search</h3><p>Try a different name, language, or topic.</p><button id="clear-empty" type="button">Clear search and filters</button></div>
+    </section>
   </main>
 
-  <footer class="footer"><div class="footer-top wrap"><a class="footer-brand" href="#top"><span class="mark" aria-hidden="true">JT<span>✳</span></span><span>Jangho Tan<small>INDEPENDENTLY BUILT</small></span></a><p>A small home for things<br>made to be useful.</p><nav aria-label="Footer navigation"><a href="#projects">Project shelf</a><a href="#about">About</a><a href="https://github.com/janghotan" target="_blank" rel="noreferrer">GitHub ↗</a></nav><a class="back-top" href="#top">Back to the top ↑</a></div><div class="footer-bottom wrap"><span>© <span id="year"></span> JANGHO TAN</span><span>DATA: PUBLIC GITHUB API + LOCAL SNAPSHOT</span><span>BUILT WITH CARE, NOT A PRICE TAG ✳</span></div></footer>
+  <footer class="portal-footer">
+    <div class="footer-main page-width">
+      <div class="footer-brand-block"><a class="brand footer-brand" href="#top"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M13 12h9v24h-9zm13 0h9v24h-9z"/><path class="brand-flare" d="m39 4 2.2 5.1L46 11l-4.8 2-2.2 5-2-5-5-2 5-1.9z"/></svg></span><span class="brand-type"><strong>Jangho Tan</strong><small>THE PROJECT MARKET</small></span></a><p>Little tools, serious intent.<br>Built in public, linked to the source.</p></div>
+      <div class="footer-column"><h2>DISCOVER</h2><a href="#projects">All projects</a><a href="#projects" data-filter="Rust">Rust tools</a><a href="#projects" data-filter="Python">Python tools</a><a href="#projects" data-filter="TypeScript">Agent tooling</a></div>
+      <div class="footer-column"><h2>FEATURED</h2><a href="https://github.com/janghotan/rewind" target="_blank" rel="noreferrer">rewind ↗</a><a href="https://github.com/janghotan/micro-dump" target="_blank" rel="noreferrer">micro-dump ↗</a><a href="https://janghotan.github.io/apt/" target="_blank" rel="noreferrer">APT install source ↗</a></div>
+      <div class="footer-column"><h2>AROUND THE WEB</h2><a href="https://github.com/janghotan" target="_blank" rel="noreferrer">GitHub profile ↗</a><a href="https://github.com/janghotan?tab=repositories" target="_blank" rel="noreferrer">Repository list ↗</a><a href="#about">About Jangho</a></div>
+    </div>
+    <div class="footer-bottom"><div class="page-width"><span>© <span id="year"></span> JANGHO TAN</span><span>PROJECT DATA: PUBLIC GITHUB API + LOCAL SNAPSHOT</span><a href="#top">Back to the top ↑</a></div></div>
+  </footer>
 </body>
 </html>
