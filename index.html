@@ -4,101 +4,159 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Jangho Tan — AI agents &amp; LLM apps</title>
-<meta name="description" content="Jangho Tan (@janghotan) — building AI agents & LLM apps. Ex-security, still paranoid about guardrails.">
+<meta name="description" content="Jangho Tan (@janghotan) — building AI agents &amp; LLM apps. Ex-security, still paranoid about guardrails.">
 <meta name="color-scheme" content="dark">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231A1A2E'/%3E%3Cpath d='M8 11l6 5-6 5' stroke='%237C5CFF' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3Crect x='17' y='19' width='8' height='3' rx='1.5' fill='%2322D3EE'/%3E%3C/svg%3E">
+<meta name="theme-color" content="#0F1016">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://janghotan.github.io/">
+<meta property="og:title" content="Jangho Tan — AI agents &amp; LLM apps">
+<meta property="og:description" content="Building AI agents &amp; LLM apps. Ex-security, still paranoid about guardrails.">
+<meta property="og:image" content="https://janghotan.github.io/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@janghotan">
+<meta name="twitter:image" content="https://janghotan.github.io/assets/og.png">
+
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap">
 <link rel="stylesheet" href="style.css">
 <script defer src="app.js"></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
+<div class="texture" aria-hidden="true"></div>
 
-<div class="shell">
+<div class="app">
 
-  <header class="statusbar" role="banner">
-    <span class="sb-emoji" aria-hidden="true">💬</span>
-    <span class="sb-item"><strong id="stat-repos">—</strong> repos</span>
-    <span class="sb-sep" aria-hidden="true">·</span>
-    <span class="sb-emoji" aria-hidden="true">⭐</span>
-    <span class="sb-item"><strong id="stat-stars">—</strong> stars</span>
-    <span class="sb-sep" aria-hidden="true">·</span>
-    <span class="sb-emoji" aria-hidden="true">📦</span>
-    <span class="sb-item"><strong id="stat-langs">—</strong> langs</span>
-    <span class="sb-sep" aria-hidden="true">·</span>
-    <span class="sb-item sb-live"><span class="dot" id="status-dot" aria-hidden="true"></span><span id="status-text">fetching…</span></span>
-    <span class="sb-spacer"></span>
-    <span class="sb-item sb-sync">🔄 <span id="stat-sync">—</span></span>
+  <header class="topbar">
+    <div class="topbar-id">
+      <span class="lights" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span class="topbar-path">jangho@tan: ~/portfolio</span>
+      <span class="topbar-branch">main</span>
+    </div>
+    <dl class="metrics">
+      <div class="metric"><dt>repos</dt><dd id="m-repos">0</dd></div>
+      <div class="metric"><dt>stars</dt><dd id="m-stars">0</dd></div>
+      <div class="metric"><dt>langs</dt><dd id="m-langs">0</dd></div>
+      <div class="metric metric-status">
+        <dt class="visually-hidden">API status</dt>
+        <dd><span class="dot" id="dot" aria-hidden="true"></span><span id="status-text">connecting</span></dd>
+      </div>
+    </dl>
   </header>
 
-  <div class="layout">
+  <div class="frame">
 
-    <nav class="sidebar" aria-label="Sections">
-      <p class="sidebar-label" aria-hidden="true">💬 chats</p>
-      <ul>
-        <li><a href="#hero" class="nav-item" aria-current="true"><span aria-hidden="true">›</span> whoami</a></li>
-        <li><a href="#repos" class="nav-item"><span aria-hidden="true">›</span> repos <em id="nav-repo-count"></em></a></li>
-        <li><a href="#skills" class="nav-item"><span aria-hidden="true">›</span> skills</a></li>
-        <li><a href="#contact" class="nav-item"><span aria-hidden="true">›</span> contact</a></li>
+    <nav class="rail" aria-label="Sections">
+      <p class="rail-label">sections</p>
+      <ul class="rail-list">
+        <li><a class="rail-item" href="#hero" aria-current="page"><span class="rail-idx">00</span>whoami</a></li>
+        <li><a class="rail-item" href="#repos"><span class="rail-idx">01</span>repos<em id="rail-repo-count"></em></a></li>
+        <li><a class="rail-item" href="#skills"><span class="rail-idx">02</span>skills</a></li>
+        <li><a class="rail-item" href="#contact"><span class="rail-idx">03</span>contact</a></li>
       </ul>
-      <p class="sidebar-foot"><span class="green">+</span> open to collab<br><span class="red">−</span> no security theater</p>
+
+      <p class="rail-label rail-label-spaced">pinned</p>
+      <ul class="rail-list rail-list-sm" id="rail-pinned" aria-label="Pinned repositories">
+        <li class="rail-skeleton" aria-hidden="true">loading…</li>
+      </ul>
+
+      <p class="rail-foot"><span class="sig add">+</span> open to collab<br><span class="sig del">−</span> no security theater</p>
     </nav>
 
     <main id="main" class="main">
 
-      <section id="hero" class="hero" aria-labelledby="hero-title">
-        <div class="term" role="img" aria-label="Terminal session showing a whoami command and git log for Jangho Tan">
-          <div class="term-bar"><span></span><span></span><span></span><span class="term-title">jangho@tan: ~</span></div>
-          <div class="term-body" aria-hidden="true">
-            <p><span class="prompt">jangho@tan:~$</span> whoami</p>
-            <p class="out">jangho tan <span class="muted">// AI agents &amp; LLM apps</span></p>
-            <p class="out muted">ex-security · guardrails enjoyer</p>
-            <p><span class="prompt">jangho@tan:~$</span> git log --oneline -3</p>
-            <p class="out"><span class="hash">a1f9c2e</span> <span class="green">feat</span>: ship agents that survive prod</p>
-            <p class="out"><span class="hash">7d3b011</span> <span class="amber">wip</span>:  retries, evals, guardrails</p>
-            <p class="out"><span class="hash">c0ffee1</span> <span class="red">fix</span>:  stopped trusting user input</p>
-            <p><span class="prompt">jangho@tan:~$</span> <span class="caret" id="caret"></span></p>
+      <section id="hero" class="term" aria-labelledby="hero-title">
+        <div class="term-bar">
+          <span class="lights" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span class="term-bar-title">whoami — zsh</span>
+          <span class="term-bar-meta">80×24</span>
+        </div>
+
+        <div class="term-split">
+          <div class="term-pane">
+            <div class="term-stream" aria-hidden="true">
+              <p class="cl"><span class="user">jangho@tan</span><span class="sep">:</span><span class="cwd">~</span><span class="sep">$</span> whoami</p>
+              <p class="co">jangho tan</p>
+
+              <p class="cl"><span class="user">jangho@tan</span><span class="sep">:</span><span class="cwd">~</span><span class="sep">$</span> cat about.md</p>
+              <p class="co co-md"># Building AI agents &amp; LLM apps.</p>
+              <p class="co co-md"># Ex-security, still paranoid about guardrails.</p>
+
+              <p class="cl"><span class="user">jangho@tan</span><span class="sep">:</span><span class="cwd">~</span><span class="sep">$</span> git log --oneline -3</p>
+              <p class="co"><span class="hash">a1f9c2e</span> <span class="add">feat</span>: ship agents that survive prod</p>
+              <p class="co"><span class="hash">7d3b011</span> <span class="wip">wip</span>:  retries, evals, guardrails</p>
+              <p class="co"><span class="hash">c0ffee1</span> <span class="del">fix</span>:  stopped trusting user input</p>
+
+              <p class="cl cl-live"><span class="user">jangho@tan</span><span class="sep">:</span><span class="cwd">~</span><span class="sep">$</span> <span class="caret"></span></p>
+            </div>
           </div>
-        </div>
-        <div class="hero-side">
-          <h1 id="hero-title">Jangho Tan <span class="handle">@janghotan</span></h1>
-          <p class="bio">Building AI agents &amp; LLM apps. Ex-security, still paranoid about guardrails.</p>
-          <p class="deltas">
-            <span class="green">+ agents shipped</span>
-            <span class="amber">~ guardrails hardening</span>
-            <span class="red">− unsupervised tool calls</span>
-          </p>
+
+          <aside class="term-aside" aria-label="Profile">
+            <h1 id="hero-title">Jangho Tan<span class="handle">@janghotan</span></h1>
+            <p class="aside-bio">Building AI agents &amp; LLM apps. Ex-security, still paranoid about guardrails.</p>
+            <ul class="deltas">
+              <li class="add">+ agents shipped</li>
+              <li class="wip">~ guardrails hardening</li>
+              <li class="del">− unsupervised tool calls</li>
+            </ul>
+            <dl class="aside-keys">
+              <div><dt>focus</dt><dd>agents · tooling · evals</dd></div>
+              <div><dt>shell</dt><dd>zsh · tmux · neovim</dd></div>
+              <div><dt>status</dt><dd><span class="sig add">+</span> open to collaboration</dd></div>
+            </dl>
+          </aside>
         </div>
       </section>
 
-      <section id="repos" aria-labelledby="repos-title">
-        <h2 id="repos-title"><span aria-hidden="true">📦</span> repos <span class="count" id="repo-count"></span></h2>
+      <section id="repos" class="section" aria-labelledby="repos-title">
+        <div class="section-head">
+          <h2 id="repos-title"><span class="section-idx">01</span>repos<em id="repo-count"></em></h2>
+          <p class="section-note">live · public only</p>
+        </div>
         <div class="grid" id="repo-grid" aria-live="polite" aria-busy="true">
-          <p class="loading">loading public repos…</p>
+          <p class="grid-msg">fetching public repos…</p>
         </div>
-        <p class="src">live from <code>api.github.com/users/janghotan/repos</code> · public only</p>
+
+        <details class="other" id="other">
+          <summary><span class="caret-r" aria-hidden="true">›</span>other public repos <em id="other-count"></em></summary>
+          <ul class="other-list" id="other-list"></ul>
+        </details>
+
+        <p class="src">source <code>api.github.com/users/janghotan/repos</code> — filtered on <code>private:false</code></p>
       </section>
 
-      <section id="skills" aria-labelledby="skills-title">
-        <h2 id="skills-title"><span aria-hidden="true">⚡</span> skills</h2>
-        <ul class="tags">
-          <li class="tag add">+ Python</li>
-          <li class="tag add">+ TypeScript</li>
-          <li class="tag add">+ Rust</li>
-          <li class="tag add">+ LLM orchestration</li>
-          <li class="tag add">+ agent tooling / MCP</li>
-          <li class="tag add">+ CLI / TUI UX</li>
-          <li class="tag ctx">~ security review</li>
-          <li class="tag ctx">~ prompt &amp; output guardrails</li>
-          <li class="tag del">− careless side effects</li>
+      <section id="skills" class="section" aria-labelledby="skills-title">
+        <div class="section-head">
+          <h2 id="skills-title"><span class="section-idx">02</span>skills</h2>
+          <p class="section-note">add / wip / drop</p>
+        </div>
+        <ul class="chips">
+          <li class="chip add">+ Python</li>
+          <li class="chip add">+ TypeScript</li>
+          <li class="chip add">+ Rust</li>
+          <li class="chip add">+ LLM orchestration</li>
+          <li class="chip add">+ agent tooling / MCP</li>
+          <li class="chip add">+ CLI / TUI design</li>
+          <li class="chip wip">~ prompt &amp; output guardrails</li>
+          <li class="chip wip">~ security review</li>
+          <li class="chip del">− careless side effects</li>
         </ul>
       </section>
 
-      <section id="contact" aria-labelledby="contact-title">
-        <h2 id="contact-title"><span aria-hidden="true">✉️</span> contact</h2>
-        <ul class="contact-row">
-          <li><a href="https://github.com/janghotan" rel="me noopener"><span aria-hidden="true">🐙</span> GitHub</a></li>
-          <li><a href="https://x.com/janghotan" rel="me noopener"><span aria-hidden="true">𝕏</span> @janghotan</a></li>
-          <li><a href="mailto:janghotan@gmail.com"><span aria-hidden="true">✉️</span> janghotan@gmail.com</a></li>
+      <section id="contact" class="section" aria-labelledby="contact-title">
+        <div class="section-head">
+          <h2 id="contact-title"><span class="section-idx">03</span>contact</h2>
+          <p class="section-note">one line, no forms</p>
+        </div>
+        <ul class="chips chips-links">
+          <li><a class="chip" href="https://github.com/janghotan" rel="me noopener">github <span class="chip-meta">@janghotan</span></a></li>
+          <li><a class="chip" href="https://x.com/janghotan" rel="me noopener">x <span class="chip-meta">@janghotan</span></a></li>
+          <li><a class="chip" href="mailto:janghotan@gmail.com">email <span class="chip-meta">janghotan@gmail.com</span></a></li>
         </ul>
       </section>
 
@@ -107,8 +165,10 @@
 
   <footer class="footer">
     <span>© <span id="year"></span> Jangho Tan</span>
-    <span class="footer-sep" aria-hidden="true">·</span>
-    <span>plain HTML/CSS/JS · GitHub Pages</span>
+    <span class="footer-sep" aria-hidden="true">/</span>
+    <span>static html + css + js</span>
+    <span class="footer-sep" aria-hidden="true">/</span>
+    <span>github pages</span>
   </footer>
 </div>
 </body>

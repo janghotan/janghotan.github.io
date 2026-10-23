@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <pattern id="scan" width="4" height="4" patternUnits="userSpaceOnUse">
+      <rect width="4" height="1" fill="#ffffff" opacity="0.02"/>
+    </pattern>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="630" fill="#0F1016"/>
+  <rect width="1200" height="630" fill="url(#scan)"/>
+  <rect width="1200" height="630" filter="url(#grain)" opacity="0.05"/>
+
+  <!-- terminal window -->
+  <rect x="64" y="88" width="1072" height="454" rx="6" fill="#14161F" stroke="#242938"/>
+  <rect x="64" y="88" width="1072" height="44" rx="6" fill="#1A1D28"/>
+  <rect x="64" y="118" width="1072" height="14" fill="#1A1D28"/>
+  <line x1="64" y1="132" x2="1136" y2="132" stroke="#242938"/>
+  <circle cx="90" cy="110" r="5" fill="#3B4048"/>
+  <circle cx="108" cy="110" r="5" fill="#3B4048"/>
+  <circle cx="126" cy="110" r="5" fill="#3B4048"/>
+  <text x="150" y="115" font-family="ui-monospace,Menlo,monospace" font-size="13" fill="#A7ADBF">whoami — zsh</text>
+
+  <!-- prompt lines -->
+  <g font-family="ui-monospace,Menlo,monospace" font-size="22">
+    <text x="100" y="192"><tspan fill="#6E7BFF">jangho@tan</tspan><tspan fill="#6C7385">:</tspan><tspan fill="#3FB950">~</tspan><tspan fill="#6C7385">$</tspan><tspan fill="#E4E6ED"> whoami</tspan></text>
+    <text x="100" y="228" fill="#A7ADBF">jangho tan</text>
+
+    <text x="100" y="286"><tspan fill="#6E7BFF">jangho@tan</tspan><tspan fill="#6C7385">:</tspan><tspan fill="#3FB950">~</tspan><tspan fill="#6C7385">$</tspan><tspan fill="#E4E6ED"> cat about.md</tspan></text>
+    <text x="100" y="322" fill="#6C7385" font-style="italic"># Building AI agents &amp; LLM apps.</text>
+    <text x="100" y="356" fill="#6C7385" font-style="italic"># Ex-security, still paranoid about guardrails.</text>
+
+    <text x="100" y="414"><tspan fill="#6E7BFF">jangho@tan</tspan><tspan fill="#6C7385">:</tspan><tspan fill="#3FB950">~</tspan><tspan fill="#6C7385">$</tspan><tspan fill="#E4E6ED"> git log --oneline -3</tspan></text>
+    <text x="100" y="450"><tspan fill="#6C7385">a1f9c2e </tspan><tspan fill="#3FB950">feat</tspan><tspan fill="#A7ADBF">: ship agents that survive prod</tspan></text>
+    <text x="100" y="484"><tspan fill="#6C7385">7d3b011 </tspan><tspan fill="#D29922">wip </tspan><tspan fill="#A7ADBF">: retries, evals, guardrails</tspan></text>
+    <text x="100" y="518"><tspan fill="#6C7385">c0ffee1 </tspan><tspan fill="#F85149">fix </tspan><tspan fill="#A7ADBF">: stopped trusting user input</tspan></text>
+  </g>
+  <rect x="100" y="530" width="11" height="22" fill="#E4E6ED"/>
+
+  <text x="64" y="600" font-family="ui-monospace,Menlo,monospace" font-size="15" fill="#6C7385">
+    <tspan fill="#A7ADBF">janghotan.github.io</tspan>  /  <tspan fill="#6E7BFF">@janghotan</tspan>
+  </text>
+</svg>
