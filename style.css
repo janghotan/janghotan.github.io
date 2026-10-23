@@ -812,13 +812,20 @@ button,input,select  {
 }
 .profile-promo-stats span  {
     display:grid;
-    color:#888;
-    font:7px var(--mono);
-    text-transform:uppercase
+    gap:1px;
+    color:#7a7273;
+    font:600 9px var(--mono);
+    text-transform:uppercase;
+    letter-spacing:.02em;
+    line-height:1.15
 }
 .profile-promo-stats b  {
     color:#2a2526;
     font:800 13px var(--sans)
+}
+.profile-promo-stats small  {
+    font:inherit;
+    color:inherit
 }
 .market-aside  {
     min-width:0;

@@ -125,7 +125,9 @@
       if (standout.name !== "rewind") link.textContent = `Explore ${standout.name} ↗`;
     }
     const languages = Object.keys(countsByLanguage()).length;
+    const stars = repositories.reduce((total, repo) => total + (Number(repo.stargazers_count) || 0), 0);
     $("#profile-languages").textContent = languages;
+    $("#profile-stars").textContent = readable(stars);
     $("#profile-repos").textContent = repositories.length;
   }
   async function fetchJSON(url, timeout = 6500) {
@@ -168,8 +170,7 @@
       if (profile.login?.toLowerCase() !== USER) return;
       if (profile.avatar_url) { $("#header-avatar").src = profile.avatar_url; $("#profile-avatar").src = profile.avatar_url; }
       if (profile.bio) $("#profile-bio").textContent = profile.bio;
-      $("#profile-repos").textContent = Number.isFinite(profile.public_repos) ? profile.public_repos : repositories.length;
-      $("#profile-followers").textContent = Number.isFinite(profile.followers) ? profile.followers : "—";
+      // Repo/star counts come only from the repository list so THE MAKER matches the catalog grid.
     } catch { /* The profile snapshot is optional; the linked identity remains usable. */ }
   }
   function chooseFilter(value) {
