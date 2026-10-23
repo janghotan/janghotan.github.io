@@ -1,11 +1,14 @@
 /* Portfolio — live public-repo data from the GitHub API.
-   HARD RULE: private repos never render. We request type=owner, then
+   PRIVACY: private repos are never rendered. We request type=owner, then
    require repo.private === false && visibility !== "private" before use. */
 (() => {
   "use strict";
 
   const USER = "janghotan";
   const API = `https://api.github.com/users/${USER}/repos?per_page=100&type=owner&sort=updated`;
+  const TIMEOUT_MS = 8000;
+  const CACHE_KEY = "jt:repos:v1";
+  const CACHE_TTL = 10 * 60 * 1000;
 
   const LANG_COLORS = {
     TypeScript:"#3178C6", JavaScript:"#F1E05A", Python:"#3572A5", Rust:"#DEA584",
@@ -14,14 +17,13 @@
     Zig:"#EC915C", Lua:"#000080", Vue:"#41B883", Svelte:"#FF3E00", MDX:"#FCB32C"
   };
 
-  // never shown as projects: the site repo itself and the profile readme
+  // never shown as projects: the site repo itself + profile readme
   const HIDE = new Set([`${USER}.github.io`, USER]);
   // generated / not real portfolio pieces -> collapsed "other" row
   const SECONDARY = new Set(["apt", "codex-chatgpt-web"]);
+  const FEATURED_MAX = 6;
 
-  const FEATURED_MAX = 6;      // keeps the grid on a clean 3x2 / 2x3
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
   const $ = (id) => document.getElementById(id);
   const el = (tag, cls, text) => {
     const n = document.createElement(tag);
@@ -30,11 +32,13 @@
     return n;
   };
 
+  const isPublic = (r) => !!r && r.private === false && r.visibility !== "private";
+
   function relTime(iso) {
     const s = (Date.now() - new Date(iso).getTime()) / 1000;
     if (!isFinite(s) || s < 0) return "now";
     const u = [[31536000,"y"],[2592000,"mo"],[604800,"w"],[86400,"d"],[3600,"h"],[60,"m"]];
-    for (const [sec, label] of u) if (s >= sec) return Math.floor(s / sec) + label;
+    for (const pair of u) if (s >= pair[0]) return Math.floor(s / pair[0]) + pair[1];
     return "now";
   }
 
@@ -44,19 +48,19 @@
     node.textContent = "0";
     const step = (t) => {
       const p = Math.min(1, (t - start) / dur);
-      const eased = 1 - Math.pow(1 - p, 3);
-      node.textContent = String(Math.round(target * eased));
+      node.textContent = String(Math.round(target * (1 - Math.pow(1 - p, 3))));
       if (p < 1) requestAnimationFrame(step);
     };
     requestAnimationFrame(step);
   }
 
   function setStatus(kind, text) {
-    $("dot").className = "dot " + kind;
-    $("status-text").textContent = text;
+    const dot = $("dot"), label = $("status-text");
+    if (dot) dot.className = "dot " + kind;
+    if (label) label.textContent = text;
   }
 
-  /* ---------- card ---------- */
+  /* ---------- cards ---------- */
   function card(repo) {
     const a = el("a", "card");
     a.href = repo.html_url;
@@ -74,12 +78,12 @@
     const meta = el("div", "card-meta");
     if (repo.language) {
       const lang = el("span", "lang");
-      const dot = el("i");
-      dot.style.background = LANG_COLORS[repo.language] || "#6C7385";
-      lang.append(dot, document.createTextNode(repo.language));
+      const d = el("i");
+      d.style.background = LANG_COLORS[repo.language] || "#6C7385";
+      lang.append(d, document.createTextNode(repo.language));
       meta.append(lang);
     }
-    meta.append(el("span", "meta-stars", "+" + repo.stargazers_count));
+    meta.append(el("span", "meta-stars", "+" + (repo.stargazers_count || 0)));
     const upd = el("span", "meta-upd", relTime(repo.updated_at));
     upd.title = "updated " + new Date(repo.updated_at).toLocaleString();
     meta.append(upd);
@@ -98,10 +102,19 @@
   }
 
   /* ---------- render ---------- */
-  function render(primary, secondary, all) {
+  function render(all) {
     const grid = $("repo-grid");
+    if (!grid) return;
     grid.textContent = "";
     grid.removeAttribute("aria-busy");
+
+    const byPush = (a, b) => new Date(b.pushed_at || b.updated_at) - new Date(a.pushed_at || a.updated_at);
+    const isReal = (r) => !r.fork && !SECONDARY.has(r.name);
+
+    const primary = all.filter(isReal).sort(byPush).slice(0, FEATURED_MAX);
+    const secondary = all.filter((r) => SECONDARY.has(r.name)).sort(byPush);
+    const rest = all.filter((r) => !primary.includes(r) && !secondary.includes(r));
+    const others = secondary.concat(rest);
 
     if (!all.length) {
       grid.append(el("p", "grid-msg", "no public repos found"));
@@ -112,24 +125,23 @@
       grid.append(frag);
     }
 
-    // collapsed "other"
-    const otherCount = secondary.length + Math.max(0, all.length - primary.length - secondary.length);
-    if (otherCount > 0) {
-      $("other").hidden = false;
-      $("other-count").textContent = `(${otherCount})`;
-      const list = $("other-list");
-      list.textContent = "";
-      secondary
-        .concat(all.filter((r) => !primary.includes(r) && !secondary.includes(r)))
-        .forEach((r) => {
+    const otherBox = $("other");
+    if (otherBox) {
+      if (others.length) {
+        otherBox.hidden = false;
+        $("other-count").textContent = `(${others.length})`;
+        const list = $("other-list");
+        list.textContent = "";
+        others.forEach((r) => {
           const li = document.createElement("li");
           const a = el("a", null, r.name);
           a.href = r.html_url; a.target = "_blank"; a.rel = "noopener";
           li.append(a);
           list.append(li);
         });
-    } else {
-      $("other").hidden = true;
+      } else {
+        otherBox.hidden = true;
+      }
     }
 
     const langs = new Set(all.map((r) => r.language).filter(Boolean));
@@ -138,66 +150,115 @@
     countUp($("m-repos"), all.length);
     countUp($("m-stars"), stars);
     countUp($("m-langs"), langs.size);
-    $("repo-count").textContent = `(${all.length})`;
-    $("rail-repo-count").textContent = all.length;
+    const rc = $("repo-count"); if (rc) rc.textContent = `(${all.length})`;
+    const rrc = $("rail-repo-count"); if (rrc) rrc.textContent = all.length;
 
-    // pinned rail = 4 most recently pushed primary repos
     const pinned = $("rail-pinned");
-    pinned.textContent = "";
-    primary.slice(0, 4).forEach((r) => {
-      const li = document.createElement("li");
-      const a = el("a", "rail-item", r.name);
-      a.href = r.html_url; a.target = "_blank"; a.rel = "noopener";
-      li.append(a);
-      pinned.append(li);
-    });
-  }
-
-  function renderError(err) {
-    console.error("[portfolio] repo fetch failed:", err);
-    const grid = $("repo-grid");
-    grid.textContent = "";
-    grid.removeAttribute("aria-busy");
-    const p = el("p", "grid-msg");
-    p.append(document.createTextNode("could not reach the GitHub API — "));
-    const a = el("a", null, "browse repos directly");
-    a.href = `https://github.com/${USER}?tab=repositories`;
-    a.rel = "noopener";
-    p.append(a);
-    grid.append(p);
-    $("other").hidden = true;
-    $("rail-pinned").textContent = "";
-    setStatus("offline", "offline");
-  }
-
-  async function load() {
-    setStatus("loading", "syncing");
-    try {
-      const res = await fetch(API, { headers: { Accept: "application/vnd.github+json" } });
-      if (!res.ok) throw new Error("HTTP " + res.status);
-      const raw = await res.json();
-      if (!Array.isArray(raw)) throw new Error("unexpected payload");
-
-      // privacy gate
-      const pub = raw.filter((r) => r && r.private === false && r.visibility !== "private" && !HIDE.has(r.name));
-
-      const byPush = (a, b) => new Date(b.pushed_at || b.updated_at) - new Date(a.pushed_at || a.updated_at);
-      const isReal = (r) => !r.fork && !SECONDARY.has(r.name);
-
-      const primary = pub.filter(isReal).sort(byPush).slice(0, FEATURED_MAX);
-      const secondary = pub.filter((r) => SECONDARY.has(r.name)).sort(byPush);
-
-      render(primary, secondary, pub);
-      setStatus("online", "online");
-    } catch (err) {
-      renderError(err);
+    if (pinned) {
+      pinned.textContent = "";
+      primary.slice(0, 4).forEach((r) => {
+        const li = document.createElement("li");
+        const a = el("a", "rail-item", r.name);
+        a.href = r.html_url; a.target = "_blank"; a.rel = "noopener";
+        li.append(a);
+        pinned.append(li);
+      });
     }
   }
 
-  /* ---------- nav scroll-spy ---------- */
+  function renderError(message) {
+    const grid = $("repo-grid");
+    if (grid) {
+      grid.textContent = "";
+      grid.removeAttribute("aria-busy");
+      const p = el("p", "grid-msg", message + " — ");
+      const a = el("a", null, "browse repos on GitHub");
+      a.href = `https://github.com/${USER}?tab=repositories`;
+      a.target = "_blank";
+      a.rel = "noopener";
+      p.append(a);
+      grid.append(p);
+    }
+    const otherBox = $("other"); if (otherBox) otherBox.hidden = true;
+    const pinned = $("rail-pinned");
+    if (pinned) {
+      pinned.textContent = "";
+      const li = document.createElement("li");
+      li.className = "rail-skeleton";
+      li.textContent = "unavailable";
+      pinned.append(li);
+    }
+  }
+
+  /* ---------- data ---------- */
+  function readCache() {
+    try {
+      const raw = sessionStorage.getItem(CACHE_KEY);
+      if (!raw) return null;
+      const parsed = JSON.parse(raw);
+      if (!parsed || !Array.isArray(parsed.repos)) return null;
+      if (Date.now() - (parsed.at || 0) > CACHE_TTL) return null;
+      return parsed.repos.filter(isPublic);
+    } catch (_) { return null; }
+  }
+
+  function writeCache(repos) {
+    try {
+      sessionStorage.setItem(CACHE_KEY, JSON.stringify({ at: Date.now(), repos }));
+    } catch (_) { /* quota / disabled — ignore */ }
+  }
+
+  async function fetchRepos() {
+    const ctrl = typeof AbortController === "function" ? new AbortController() : null;
+    const timer = setTimeout(() => ctrl && ctrl.abort(), TIMEOUT_MS);
+    try {
+      const res = await fetch(API, {
+        headers: { Accept: "application/vnd.github+json" },
+        signal: ctrl ? ctrl.signal : undefined
+      });
+      if (res.status === 403 || res.status === 429) {
+        throw new Error("GitHub API rate limit reached");
+      }
+      if (!res.ok) throw new Error("GitHub API returned HTTP " + res.status);
+      const raw = await res.json();
+      if (!Array.isArray(raw)) throw new Error("unexpected API payload");
+      return raw.filter(isPublic).filter((r) => !HIDE.has(r.name));
+    } finally {
+      clearTimeout(timer);
+    }
+  }
+
+  async function load() {
+    const cached = readCache();
+    if (cached) { render(cached); setStatus("online", "online"); }
+    else setStatus("loading", "syncing");
+
+    try {
+      const repos = await fetchRepos();
+      writeCache(repos);
+      render(repos);
+      setStatus("online", "online");
+    } catch (err) {
+      console.error("[portfolio] repo fetch failed:", err);
+      let msg = "Could not load repos";
+      if (err && err.name === "AbortError") msg = "GitHub API timed out";
+      else if (err && err instanceof TypeError) msg = "GitHub API unreachable";
+      else if (err && err.message) msg = err.message;
+      if (cached) {
+        setStatus("offline", "cached");
+      } else {
+        renderError(msg);
+        setStatus("offline", "offline");
+      }
+    }
+  }
+
+  /* ---------- scroll-spy ---------- */
   function navSpy() {
-    const links = [...document.querySelectorAll(".rail-item[href^='#']")];
-    const targets = links.map((l) => document.querySelector(l.getAttribute("href"))).filter(Boolean);
+    const links = Array.prototype.slice.call(document.querySelectorAll('.rail-item[href^="#"]'));
+    const targets = links
+      .map((l) => document.querySelector(l.getAttribute("href")))
+      .filter(Boolean);
     if (!("IntersectionObserver" in window) || !targets.length) return;
 
     const setActive = (id) => links.forEach((l) =>
@@ -207,15 +268,31 @@
       const best = entries.filter((e) => e.isIntersecting)
         .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
       if (best) setActive(best.target.id);
-    }, { rootMargin: "-40% 0px -50% 0px", threshold: [0, .2, .5, 1] });
+    }, { rootMargin: "-40% 0px -50% 0px", threshold: [0, 0.2, 0.5, 1] });
 
     targets.forEach((t) => io.observe(t));
   }
 
-  document.addEventListener("DOMContentLoaded", () => {
-    $("year").textContent = new Date().getFullYear();
+  function boot() {
+    const year = $("year");
+    if (year) year.textContent = new Date().getFullYear();
     navSpy();
     load();
-    setInterval(load, 10 * 60 * 1000);
-  });
+    setInterval(load, CACHE_TTL);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", boot, { once: true });
+  } else {
+    boot();
+  }
+
+  // safety net: never leave the UI stuck on "connecting"
+  setTimeout(() => {
+    const label = $("status-text");
+    if (label && /connecting|syncing/i.test(label.textContent)) {
+      renderError("GitHub API did not respond");
+      setStatus("offline", "offline");
+    }
+  }, TIMEOUT_MS + 4000);
 })();
