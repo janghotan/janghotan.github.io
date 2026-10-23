@@ -117,12 +117,14 @@
     try {
       const live = await fetchJSON(REPOS_API);
       setRepos(live, "live");
-    } catch {
+    } catch (liveError) {
       try {
         const fallback = await fetchJSON("repos.json");
         setRepos(fallback, "snapshot");
-      } catch {
-        status.textContent = "Couldn’t load the public repo list. Try GitHub directly.";
+      } catch (snapshotError) {
+        const describe = (error) => error?.name === "AbortError" ? "request timed out" : error?.message || "request failed";
+        console.error("Repository API and snapshot both failed", { liveError, snapshotError });
+        status.textContent = `GitHub API: ${describe(liveError)} · local snapshot: ${describe(snapshotError)}`;
         status.classList.add("is-error");
         grid.setAttribute("aria-busy", "false");
         $("#empty-state").hidden = false;
