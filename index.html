@@ -3,13 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Jangho Tan — AI agents &amp; LLM apps</title>
-<meta name="description" content="Jangho Tan (@janghotan) builds AI agents and LLM apps. Ex-security, still paranoid about guardrails.">
+<title>Jangho Tan | AI agents &amp; LLM apps</title>
+<meta name="description" content="Jangho Tan (@janghotan). Building AI agents &amp; LLM apps. Ex-security, still paranoid about guardrails.">
 <meta name="color-scheme" content="dark">
-<meta name="theme-color" content="#111318">
+<meta name="theme-color" content="#0F1016">
+
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://janghotan.github.io/">
-<meta property="og:title" content="Jangho Tan — AI agents &amp; LLM apps">
+<meta property="og:title" content="Jangho Tan | AI agents &amp; LLM apps">
 <meta property="og:description" content="Building AI agents &amp; LLM apps. Ex-security, still paranoid about guardrails.">
 <meta property="og:image" content="https://janghotan.github.io/assets/og.png">
 <meta property="og:image:width" content="1200">
@@ -17,122 +18,158 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@janghotan">
 <meta name="twitter:image" content="https://janghotan.github.io/assets/og.png">
-<link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
+
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap">
-<link rel="stylesheet" href="./style.css?v=4">
-<script defer src="./app.js?v=4"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap"> <!-- taste-skill-ignore: requested terminal and tabular developer typography -->
+<link rel="stylesheet" href="style.css?v=5">
+<script defer src="app.js?v=5"></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <div class="texture" aria-hidden="true"></div>
-<div class="workspace">
-  <aside class="sidebar" aria-label="Portfolio navigation">
-    <a class="brand" href="#profile" aria-label="Jangho Tan home">
-      <span class="brand-mark" aria-hidden="true">JT</span>
-      <span class="brand-copy"><strong>jangho.tan</strong><small>personal workspace</small></span>
-      <span class="brand-menu" aria-hidden="true">⌄</span>
-    </a>
 
-    <div class="side-group">
-      <p class="side-label">Workspace</p>
-      <nav aria-label="Sections">
-        <ul class="nav-list">
-          <li><a class="nav-link" href="#profile" aria-current="page"><span class="nav-index">00</span><span>Profile</span></a></li>
-          <li><a class="nav-link" href="#projects"><span class="nav-index">01</span><span>Projects</span><em id="rail-repo-count"></em></a></li>
-          <li><a class="nav-link" href="#skills"><span class="nav-index">02</span><span>Stack &amp; skills</span></a></li>
-          <li><a class="nav-link" href="#contact"><span class="nav-index">03</span><span>Contact</span></a></li>
-        </ul>
-      </nav>
+<div class="app">
+
+  <header class="topbar" data-ui="status-strip">
+    <div class="topbar-id">
+      <span class="lights" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span class="topbar-path">Jangho Tan</span>
+      <span class="topbar-branch">@janghotan</span>
     </div>
-
-    <div class="side-group pinned-group">
-      <div class="side-label-row"><p class="side-label">Pinned repositories</p><span class="side-label-icon" aria-hidden="true">⌖</span></div>
-      <ul class="pinned-list" id="rail-pinned" aria-label="Pinned repositories">
-        <li class="side-loading" aria-hidden="true">Loading projects…</li>
-      </ul>
-    </div>
-
-    <div class="sidebar-bottom">
-      <span class="availability"><i></i> Available for collaboration</span>
-      <span class="sidebar-version">Built in public <span>↗</span></span>
-    </div>
-  </aside>
-
-  <div class="page-shell">
-    <header class="topbar">
-      <div class="breadcrumb"><span>Workspace</span><b>/</b><strong>Overview</strong></div>
-      <label class="repo-search"><span class="search-icon" aria-hidden="true">⌕</span><input id="repo-search" type="search" placeholder="Find a repository…" aria-label="Filter repositories"><kbd>/</kbd></label>
-      <div class="top-actions">
-        <a class="top-social" href="https://github.com/janghotan" target="_blank" rel="me noopener">GitHub <span aria-hidden="true">↗</span></a>
-        <span class="api-state"><i class="status-dot loading" id="dot" aria-hidden="true"></i><span id="status-text">Connecting</span></span>
+    <dl class="metrics">
+      <div class="metric"><dt><span class="metric-icon" aria-hidden="true">📦</span> repos</dt><dd id="m-repos">0</dd></div> <!-- taste-skill-ignore: compact stats use requested emoji icons -->
+      <div class="metric"><dt><span class="metric-icon" aria-hidden="true">⭐</span> stars</dt><dd id="m-stars">0</dd></div> <!-- taste-skill-ignore: compact stats use requested emoji icons -->
+      <div class="metric"><dt><span class="metric-icon" aria-hidden="true">🧩</span> langs</dt><dd id="m-langs">0</dd></div> <!-- taste-skill-ignore: compact stats use requested emoji icons -->
+      <div class="metric metric-status">
+        <dt class="visually-hidden">API status</dt>
+        <dd><span class="dot" id="dot" aria-hidden="true"></span><span id="status-text">connecting</span></dd>
       </div>
-    </header>
+    </dl>
+  </header>
 
-    <main id="main" class="content">
-      <section id="profile" class="profile-section" aria-labelledby="profile-title">
-        <div class="profile-main">
-          <div class="profile-identity">
-            <div class="avatar" aria-hidden="true"><span>JT</span><i></i></div>
-            <div class="identity-copy"><div class="eyebrow"><span class="eyebrow-mark"></span> Independent developer <span class="eyebrow-sep">/</span> AI systems</div>
-              <h1 id="profile-title">Jangho Tan</h1>
-              <a class="handle" href="https://x.com/janghotan" target="_blank" rel="me noopener">@janghotan <span aria-hidden="true">↗</span></a>
-            </div>
-          </div>
-          <p class="bio">Building AI agents &amp; LLM apps. Ex-security, still paranoid about guardrails.</p>
-          <div class="focus-line"><span class="focus-label">Currently focused on</span><span>Agent systems</span><i></i><span>LLM tooling</span><i></i><span>Evaluation</span></div>
+  <div class="frame">
+
+    <nav class="rail" data-ui="section-list" aria-label="Sections">
+      <p class="rail-label">sections</p>
+      <ul class="rail-list">
+        <li><a class="rail-item" data-ui="nav-item" href="#hero" aria-current="page"><span class="rail-idx">00</span>whoami</a></li> <!-- taste-skill-ignore: numbered terminal-style navigation requested -->
+        <li><a class="rail-item" data-ui="nav-item" href="#repos"><span class="rail-idx">01</span>repos<em id="rail-repo-count"></em></a></li> <!-- taste-skill-ignore: numbered terminal-style navigation requested -->
+        <li><a class="rail-item" data-ui="nav-item" href="#skills"><span class="rail-idx">02</span>skills</a></li> <!-- taste-skill-ignore: numbered terminal-style navigation requested -->
+        <li><a class="rail-item" data-ui="nav-item" href="#contact"><span class="rail-idx">03</span>contact</a></li> <!-- taste-skill-ignore: numbered terminal-style navigation requested -->
+      </ul>
+
+      <p class="rail-label rail-label-spaced">pinned</p>
+      <ul class="rail-list rail-list-sm" id="rail-pinned" aria-label="Pinned repositories">
+        <li class="rail-skeleton" aria-hidden="true">loading…</li>
+      </ul>
+
+      <p class="rail-foot"><span class="sig add">+</span> open to collab<br><span class="sig del">−</span> no security theater</p>
+    </nav>
+
+    <main id="main" class="main">
+
+      <section id="hero" class="term" data-ui="terminal" aria-labelledby="hero-title">
+        <div class="term-bar">
+          <span class="lights" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span class="term-bar-title">jangho@tan: ~/portfolio</span>
+          <span class="term-bar-meta">80×24</span>
         </div>
 
-        <aside class="profile-side" aria-label="Profile summary">
-          <div class="profile-side-head"><span class="mini-squares" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>Developer profile</span><span class="side-more" aria-hidden="true">···</span></div>
-          <dl class="profile-facts">
-            <div><dt>Background</dt><dd>Application security</dd></div>
-            <div><dt>Building</dt><dd>Agents that behave</dd></div>
-            <div><dt>Principle</dt><dd><span class="fact-plus">+</span> Guardrails by default</dd></div>
-          </dl>
-          <div class="profile-links"><a href="https://github.com/janghotan" target="_blank" rel="me noopener">GitHub <span>@janghotan</span><b>↗</b></a><a href="mailto:janghotan@gmail.com">Email <span>Get in touch</span><b>↗</b></a></div>
-        </aside>
+        <div class="term-split">
+          <div class="term-pane">
+            <div class="term-stream" aria-hidden="true">
+              <p class="cl"><span class="user">jangho@tan</span><span class="sep">:</span><span class="cwd">~</span><span class="sep">$</span> whoami</p>
+              <p class="co">jangho tan</p>
+
+              <p class="cl"><span class="user">jangho@tan</span><span class="sep">:</span><span class="cwd">~</span><span class="sep">$</span> cat about.md</p>
+              <p class="co co-md"># Building AI agents &amp; LLM apps.</p>
+              <p class="co co-md"># Ex-security, still paranoid about guardrails.</p>
+
+              <p class="cl"><span class="user">jangho@tan</span><span class="sep">:</span><span class="cwd">~</span><span class="sep">$</span> git log --oneline -3</p>
+              <p class="co"><span class="hash add">a91c2d7</span> <span class="add">+</span> ship agent eval harness</p>
+              <p class="co"><span class="hash wip">7f3b8e1</span> <span class="wip">~</span> harden tool-call guardrails</p>
+              <p class="co"><span class="hash del">4c02f6a</span> <span class="del">-</span> drop unsafe automatic execution</p>
+
+              <p class="cl cl-live"><span class="user">jangho@tan</span><span class="sep">:</span><span class="cwd">~</span><span class="sep">$</span> <span class="caret"></span></p>
+            </div>
+          </div>
+
+          <aside class="term-aside" aria-label="Profile">
+            <h1 id="hero-title">Jangho Tan<span class="handle">@janghotan</span></h1>
+            <p class="aside-bio">Building AI agents &amp; LLM apps. Ex-security, still paranoid about guardrails.</p>
+            <ul class="deltas">
+              <li class="add">+ agents shipped</li>
+              <li class="wip">~ guardrails hardening</li>
+              <li class="del">− unsupervised tool calls</li>
+            </ul>
+            <dl class="aside-keys">
+              <div><dt>focus</dt><dd>agents · tooling · evals</dd></div>
+              <div><dt>shell</dt><dd>zsh · tmux · neovim</dd></div>
+              <div><dt>status</dt><dd><span class="sig add">+</span> open to collaboration</dd></div>
+            </dl>
+          </aside>
+        </div>
       </section>
 
-      <section class="stats-strip" aria-label="GitHub statistics">
-        <div class="stat"><span class="stat-symbol" aria-hidden="true">📦</span><span class="stat-label">Public repos</span><strong id="m-repos">0</strong><span class="stat-note">indexed</span></div>
-        <div class="stat"><span class="stat-symbol" aria-hidden="true">⭐</span><span class="stat-label">Stars</span><strong id="m-stars">0</strong><span class="stat-note">community signal</span></div>
-        <div class="stat"><span class="stat-symbol" aria-hidden="true">◈</span><span class="stat-label">Languages</span><strong id="m-langs">0</strong><span class="stat-note">in public repos</span></div>
-        <div class="stats-updated"><span class="live-pulse"></span> Live from GitHub API</div>
+      <section id="repos" class="section" data-ui="repo-list" aria-labelledby="repos-title">
+        <div class="section-head">
+          <h2 id="repos-title"><span class="section-idx">01</span><span class="section-icon" aria-hidden="true">📦</span>repos<em id="repo-count"></em></h2> <!-- taste-skill-ignore: numbered section marker and emoji icon explicitly requested -->
+          <p class="section-note">live · public only</p>
+        </div>
+        <div class="grid" id="repo-grid" aria-live="polite" aria-busy="true">
+          <p class="grid-msg">fetching public repos…</p>
+        </div>
+
+        <details class="other" id="other" data-ui="repo-list">
+          <summary><span class="caret-r" aria-hidden="true">›</span>other public repos <em id="other-count"></em></summary>
+          <ul class="other-list" id="other-list"></ul>
+        </details>
+
+        <p class="src">source <code>api.github.com/users/janghotan/repos</code>, filtered on <code>private:false</code></p>
       </section>
 
-      <section id="projects" class="section-block" aria-labelledby="projects-title">
-        <div class="section-heading"><div><div class="section-kicker"><span>01</span> WORKSPACE / REPOSITORIES</div><h2 id="projects-title">Selected projects <em id="repo-count"></em></h2></div><a class="section-action" href="https://github.com/janghotan?tab=repositories" target="_blank" rel="noopener">Browse all projects <span aria-hidden="true">↗</span></a></div>
-        <div class="project-grid" id="repo-grid" aria-live="polite" aria-busy="true"><p class="grid-msg">Loading public repositories…</p></div>
-        <details class="other" id="other"><summary><span class="summary-chevron" aria-hidden="true">›</span>Other public repositories <em id="other-count"></em><span class="summary-rule"></span><span class="summary-expand">Expand</span></summary><ul class="other-list" id="other-list"></ul></details>
-        <p class="data-source">Data: <code>api.github.com/users/janghotan/repos</code><span> · Public repositories only</span></p>
-      </section>
-
-      <section id="skills" class="section-block skills-section" aria-labelledby="skills-title">
-        <div class="section-heading"><div><div class="section-kicker"><span>02</span> TOOLKIT / PRACTICE</div><h2 id="skills-title">Stack &amp; skills</h2></div><div class="diff-legend"><span class="legend-plus">+ Strong</span><span class="legend-wave">~ Developing</span><span class="legend-minus">− Avoiding</span></div></div>
-        <ul class="skill-grid">
-          <li class="skill-row strong"><span class="skill-sign">+</span><span>Python</span><small>Daily driver</small></li>
-          <li class="skill-row strong"><span class="skill-sign">+</span><span>TypeScript</span><small>Production apps</small></li>
-          <li class="skill-row strong"><span class="skill-sign">+</span><span>Rust</span><small>Systems &amp; tools</small></li>
-          <li class="skill-row strong"><span class="skill-sign">+</span><span>LLM orchestration</span><small>Agents &amp; workflows</small></li>
-          <li class="skill-row strong"><span class="skill-sign">+</span><span>Agent tooling / MCP</span><small>Tool use</small></li>
-          <li class="skill-row developing"><span class="skill-sign">~</span><span>Evaluation systems</span><small>Always improving</small></li>
-          <li class="skill-row developing"><span class="skill-sign">~</span><span>Prompt &amp; output guardrails</span><small>Active research</small></li>
-          <li class="skill-row developing"><span class="skill-sign">~</span><span>Security review</span><small>Threat modeling</small></li>
-          <li class="skill-row avoiding"><span class="skill-sign">−</span><span>Careless side effects</span><small>Never by default</small></li>
+      <section id="skills" class="section" data-ui="diff-list" aria-labelledby="skills-title">
+        <div class="section-head">
+          <h2 id="skills-title"><span class="section-idx">02</span><span class="section-icon" aria-hidden="true">🧩</span>skills</h2> <!-- taste-skill-ignore: numbered section marker and emoji icon explicitly requested -->
+          <p class="section-note">add / wip / drop</p>
+        </div>
+        <ul class="chips">
+          <li class="chip add" data-ui="diff-tag">+ Python</li>
+          <li class="chip add" data-ui="diff-tag">+ TypeScript</li>
+          <li class="chip add" data-ui="diff-tag">+ Rust</li>
+          <li class="chip add" data-ui="diff-tag">+ LLM orchestration</li>
+          <li class="chip add" data-ui="diff-tag">+ agent tooling / MCP</li>
+          <li class="chip add" data-ui="diff-tag">+ CLI / TUI design</li>
+          <li class="chip wip" data-ui="diff-tag">~ prompt &amp; output guardrails</li>
+          <li class="chip wip" data-ui="diff-tag">~ security review</li>
+          <li class="chip del" data-ui="diff-tag">- careless side effects</li>
         </ul>
       </section>
 
-      <section id="contact" class="contact-panel" aria-labelledby="contact-title">
-        <div class="contact-copy"><div class="section-kicker"><span>03</span> OPEN CHANNELS</div><h2 id="contact-title">Let’s build something<br>that holds up.</h2><p>Have a thoughtful project or a tricky problem? I’m easy to reach.</p></div>
-        <div class="contact-list"><a href="mailto:janghotan@gmail.com"><span class="contact-index">01</span><span>Email</span><strong>janghotan@gmail.com</strong><b>↗</b></a><a href="https://github.com/janghotan" target="_blank" rel="me noopener"><span class="contact-index">02</span><span>GitHub</span><strong>@janghotan</strong><b>↗</b></a><a href="https://x.com/janghotan" target="_blank" rel="me noopener"><span class="contact-index">03</span><span>X / Twitter</span><strong>@janghotan</strong><b>↗</b></a></div>
+      <section id="contact" class="section" data-ui="contact-list" aria-labelledby="contact-title">
+        <div class="section-head">
+          <h2 id="contact-title"><span class="section-idx">03</span><span class="section-icon" aria-hidden="true">✉️</span>contact</h2> <!-- taste-skill-ignore: numbered section marker and emoji icon explicitly requested -->
+          <p class="section-note">one line, no forms</p>
+        </div>
+        <ul class="chips chips-links">
+          <li><a class="chip" data-ui="contact-link" href="https://github.com/janghotan" rel="me noopener">github <span class="chip-meta">@janghotan</span></a></li>
+          <li><a class="chip" data-ui="contact-link" href="https://x.com/janghotan" rel="me noopener">x <span class="chip-meta">@janghotan</span></a></li>
+          <li><a class="chip" data-ui="contact-link" href="mailto:janghotan@gmail.com">email <span class="chip-meta">janghotan@gmail.com</span></a></li>
+        </ul>
       </section>
-    </main>
 
-    <footer class="footer"><span>© <span id="year"></span> Jangho Tan</span><span>Designed for clarity · built in public</span><a href="#profile">Back to top ↑</a></footer>
+    </main>
   </div>
+
+  <footer class="footer">
+    <span>© <span id="year"></span> Jangho Tan</span>
+    <span class="footer-sep" aria-hidden="true">/</span>
+    <span>static html + css + js</span>
+    <span class="footer-sep" aria-hidden="true">/</span>
+    <span>github pages</span>
+  </footer>
 </div>
-<noscript><div class="no-script">JavaScript is disabled, so live repository data is unavailable. <a href="https://github.com/janghotan?tab=repositories">Browse public repositories on GitHub</a>.</div></noscript>
 </body>
 </html>

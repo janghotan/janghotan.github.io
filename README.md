@@ -1,32 +1,33 @@
 # Jangho Tan
 
-Personal portfolio for Jangho Tan (@janghotan), an AI agent and LLM developer with a security background. The interface is a compact developer workspace in English, built with static HTML, CSS, and JavaScript.
+Personal portfolio for Jangho Tan (@janghotan), an AI agent and LLM developer with a security background. Static HTML, CSS, and JavaScript, presented as a compact terminal and developer portfolio.
 
 ## Files
 
 ```
-index.html               page structure and content
-style.css                dark workspace design system and responsive layout
-app.js                   public GitHub data, search, stats, and navigation
-assets/favicon.svg       workspace mark
+index.html               terminal hero, navigation, repo grid, skills, and contact
+style.css                dark terminal UI and responsive layout
+app.js                   public GitHub data, timeout, cache, status, and grid layout
+assets/favicon.svg       terminal prompt mark
 assets/og.svg|png        social preview (1200 × 630)
 .github/workflows/pages.yml
 ```
 
 ## Data and privacy
 
-- Repository data is fetched from the GitHub REST API with an eight-second timeout.
-- A repository must have `private === false` and must not report private visibility before it can be rendered.
-- The site repository and profile README are omitted from the project list.
-- API failures show a visible status and a direct link to GitHub; successful results are cached in session storage for ten minutes.
-- The repository search filters live public repo data locally in the browser.
+- Repository data comes from `api.github.com/users/janghotan/repos` with an eight-second timeout.
+- A repository must have `private === false` and must not report private visibility before it can render.
+- The site repository and profile README are hidden from the project list.
+- API failures show an offline status and direct GitHub link; successful results are cached in session storage for ten minutes.
+- The repo grid balances its final row at the current viewport width; additional public repos remain in a collapsed list.
 
 ## Design
 
+- A single terminal window contains the CLI transcript and profile details side by side.
 - Spacing uses the 4, 8, 12, 16, 24, 32, 48, and 64px scale.
-- Dark layered surfaces, a blue interaction accent, and semantic green/amber/red diff markers.
-- Inter for prose and JetBrains Mono for repository names and aligned data.
-- Animations and transitions honor `prefers-reduced-motion`.
+- Green marks additions, amber marks active work, and red marks removals or avoided behavior.
+- JetBrains Mono is used for terminal and data; Inter is used for prose.
+- Motion honors `prefers-reduced-motion`.
 
 ## Deploy
 

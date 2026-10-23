@@ -1,58 +1,51 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
-  <rect width="1200" height="630" fill="#111318"/>
-  <rect x="0" y="0" width="1200" height="630" fill="#111318"/>
-  <rect x="42" y="40" width="1116" height="550" rx="12" fill="#171a20" stroke="#292e37"/>
-  <rect x="42" y="40" width="204" height="550" rx="12" fill="#14171c"/>
-  <path d="M234 40h12v550h-12z" fill="#14171c"/>
-  <path d="M246 40v550" stroke="#292e37"/>
-  <rect x="64" y="62" width="36" height="36" rx="7" fill="#263240"/>
-  <text x="82" y="85" text-anchor="middle" font-family="Arial,sans-serif" font-size="13" font-weight="700" fill="#70a9ff">JT</text>
-  <text x="112" y="77" font-family="Arial,sans-serif" font-size="14" font-weight="700" fill="#e8ebf0">jangho.tan</text>
-  <text x="112" y="94" font-family="Arial,sans-serif" font-size="10" fill="#747d8b">personal workspace</text>
-  <text x="68" y="140" font-family="Arial,sans-serif" font-size="9" letter-spacing="1.3" fill="#747d8b">WORKSPACE</text>
-  <rect x="60" y="153" width="166" height="34" rx="5" fill="#202630"/>
-  <rect x="60" y="153" width="2" height="34" rx="1" fill="#70a9ff"/>
-  <text x="77" y="175" font-family="Arial,sans-serif" font-size="11" fill="#e8ebf0">Profile overview</text>
-  <text x="77" y="213" font-family="Arial,sans-serif" font-size="11" fill="#abb2be">Projects</text>
-  <text x="77" y="247" font-family="Arial,sans-serif" font-size="11" fill="#abb2be">Stack &amp; skills</text>
-  <text x="77" y="281" font-family="Arial,sans-serif" font-size="11" fill="#abb2be">Contact</text>
-  <text x="65" y="339" font-family="Arial,sans-serif" font-size="9" letter-spacing="1.2" fill="#747d8b">PINNED</text>
-  <circle cx="71" cy="362" r="3" fill="#70a9ff"/><text x="83" y="366" font-family="monospace" font-size="10" fill="#abb2be">Pinned project</text>
-  <circle cx="71" cy="390" r="3" fill="#657080"/><text x="83" y="394" font-family="monospace" font-size="10" fill="#abb2be">Pinned project</text>
-  <circle cx="71" cy="418" r="3" fill="#657080"/><text x="83" y="422" font-family="monospace" font-size="10" fill="#abb2be">Pinned project</text>
-  <text x="276" y="77" font-family="Arial,sans-serif" font-size="11" fill="#747d8b">Workspace</text><text x="338" y="77" font-family="Arial,sans-serif" font-size="11" fill="#535c69">/</text><text x="350" y="77" font-family="Arial,sans-serif" font-size="11" fill="#abb2be">Overview</text>
-  <rect x="876" y="59" width="196" height="30" rx="5" fill="#181b21" stroke="#292e37"/><text x="892" y="78" font-family="Arial,sans-serif" font-size="10" fill="#747d8b">Find a repository…</text>
-  <text x="1094" y="78" font-family="Arial,sans-serif" font-size="10" fill="#abb2be">GitHub ↗</text>
-  <rect x="274" y="111" width="856" height="220" rx="8" fill="#171a20" stroke="#292e37"/>
-  <rect x="296" y="132" width="64" height="64" rx="9" fill="#273342" stroke="#354252"/>
-  <text x="328" y="174" text-anchor="middle" font-family="monospace" font-size="20" fill="#d8e3f2">JT</text>
-  <circle cx="359" cy="193" r="6" fill="#59c785" stroke="#171a20" stroke-width="2"/>
-  <text x="379" y="145" font-family="monospace" font-size="10" fill="#747d8b">INDEPENDENT DEVELOPER / AI SYSTEMS</text>
-  <text x="379" y="177" font-family="Arial,sans-serif" font-size="27" font-weight="700" fill="#e8ebf0">Jangho Tan</text>
-  <text x="379" y="198" font-family="monospace" font-size="11" fill="#747d8b">@janghotan</text>
-  <text x="296" y="240" font-family="Arial,sans-serif" font-size="14" fill="#d0d5dd">Building AI agents &amp; LLM apps. Ex-security, still paranoid about</text>
-  <text x="296" y="262" font-family="Arial,sans-serif" font-size="14" fill="#d0d5dd">guardrails.</text>
-  <text x="296" y="304" font-family="monospace" font-size="10" fill="#747d8b">CURRENT FOCUS</text>
-  <text x="390" y="304" font-family="monospace" font-size="10" fill="#abb2be">Agent systems  ·  LLM tooling  ·  Evaluation</text>
-  <rect x="850" y="126" width="254" height="188" rx="6" fill="#14171c" stroke="#252a32"/>
-  <text x="870" y="151" font-family="monospace" font-size="10" fill="#8793a2">▦  DEVELOPER PROFILE</text>
-  <path d="M870 162h214M870 210h214M870 256h214" stroke="#252a32"/>
-  <text x="870" y="187" font-family="monospace" font-size="9" fill="#747d8b">BACKGROUND</text><text x="965" y="187" font-family="Arial,sans-serif" font-size="10" fill="#abb2be">Application security</text>
-  <text x="870" y="235" font-family="monospace" font-size="9" fill="#747d8b">BUILDING</text><text x="965" y="235" font-family="Arial,sans-serif" font-size="10" fill="#abb2be">Agents that behave</text>
-  <text x="870" y="281" font-family="monospace" font-size="9" fill="#747d8b">PRINCIPLE</text><text x="965" y="281" font-family="Arial,sans-serif" font-size="10" fill="#59c785">+ Guardrails by default</text>
-  <rect x="274" y="346" width="856" height="54" rx="6" fill="#15181e" stroke="#292e37"/>
-  <text x="296" y="370" font-family="Arial,sans-serif" font-size="10" fill="#747d8b">📦 Public repos</text><text x="296" y="389" font-family="monospace" font-size="11" fill="#e8ebf0">LIVE</text>
-  <path d="M452 357v32M620 357v32M790 357v32" stroke="#2b3039"/>
-  <text x="474" y="370" font-family="Arial,sans-serif" font-size="10" fill="#747d8b">⭐ Stars</text><text x="474" y="389" font-family="monospace" font-size="11" fill="#e8ebf0">LIVE</text>
-  <text x="642" y="370" font-family="Arial,sans-serif" font-size="10" fill="#747d8b">◈ Languages</text><text x="642" y="389" font-family="monospace" font-size="11" fill="#e8ebf0">LIVE</text>
-  <circle cx="821" cy="372" r="3" fill="#59c785"/><text x="834" y="376" font-family="monospace" font-size="9" fill="#747d8b">LIVE FROM GITHUB API</text>
-  <text x="274" y="439" font-family="monospace" font-size="9" letter-spacing="1" fill="#747d8b">01  WORKSPACE / REPOSITORIES</text>
-  <text x="274" y="467" font-family="Arial,sans-serif" font-size="20" font-weight="700" fill="#e8ebf0">Selected projects</text>
-  <g fill="#171a20" stroke="#292e37">
-    <rect x="274" y="484" width="269" height="78" rx="6"/><rect x="554" y="484" width="269" height="78" rx="6"/><rect x="834" y="484" width="296" height="78" rx="6"/>
+  <defs>
+    <pattern id="scan" width="4" height="4" patternUnits="userSpaceOnUse"><rect width="4" height="1" fill="#fff" opacity=".018"/></pattern>
+    <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency=".82" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter>
+  </defs>
+  <rect width="1200" height="630" fill="#0F1016"/>
+  <rect width="1200" height="630" fill="url(#scan)"/>
+  <rect width="1200" height="630" filter="url(#grain)" opacity=".035"/>
+
+  <rect x="48" y="42" width="1104" height="538" rx="5" fill="#14161F" stroke="#242938"/>
+  <path d="M53 42h1094a5 5 0 0 1 5 5v39H48V47a5 5 0 0 1 5-5Z" fill="#1A1D28"/>
+  <path d="M48 86h1104" stroke="#242938"/>
+  <circle cx="74" cy="64" r="5" fill="#3B4048"/><circle cx="92" cy="64" r="5" fill="#3B4048"/><circle cx="110" cy="64" r="5" fill="#3B4048"/>
+  <text x="132" y="69" font-family="ui-monospace,Menlo,monospace" font-size="13" fill="#A7ADBF">jangho@tan: ~/portfolio</text>
+  <text x="1118" y="69" text-anchor="end" font-family="ui-monospace,Menlo,monospace" font-size="11" fill="#6C7385">zsh · 80×24</text>
+
+  <path d="M704 87v492" stroke="#242938"/>
+  <g font-family="ui-monospace,Menlo,monospace" font-size="17">
+    <text x="76" y="124"><tspan fill="#70A9FF">jangho@tan</tspan><tspan fill="#6C7385">:</tspan><tspan fill="#3FB950">~</tspan><tspan fill="#6C7385">$</tspan><tspan dx="8" fill="#E4E6ED">whoami</tspan></text>
+    <text x="92" y="152" fill="#A7ADBF">Jangho Tan</text>
+    <text x="76" y="192"><tspan fill="#70A9FF">jangho@tan</tspan><tspan fill="#6C7385">:</tspan><tspan fill="#3FB950">~</tspan><tspan fill="#6C7385">$</tspan><tspan dx="8" fill="#E4E6ED">cat about.md</tspan></text>
+    <text x="92" y="220" fill="#A7ADBF">Building AI agents &amp; LLM apps.</text>
+    <text x="92" y="246" fill="#A7ADBF">Ex-security, still paranoid about guardrails.</text>
+    <text x="76" y="290"><tspan fill="#70A9FF">jangho@tan</tspan><tspan fill="#6C7385">:</tspan><tspan fill="#3FB950">~</tspan><tspan fill="#6C7385">$</tspan><tspan dx="8" fill="#E4E6ED">git log --oneline -3</tspan></text>
+    <text x="92" y="322"><tspan fill="#3FB950">a91c2d7</tspan><tspan dx="8" fill="#3FB950">+ ship agent eval harness</tspan></text>
+    <text x="92" y="350"><tspan fill="#D29922">7f3b8e1</tspan><tspan dx="8" fill="#D29922">~ harden tool-call guardrails</tspan></text>
+    <text x="92" y="378"><tspan fill="#F85149">4c02f6a</tspan><tspan dx="8" fill="#F85149">- drop unsafe automatic execution</tspan></text>
+    <text x="76" y="432"><tspan fill="#70A9FF">jangho@tan</tspan><tspan fill="#6C7385">:</tspan><tspan fill="#3FB950">~</tspan><tspan fill="#6C7385">$</tspan><tspan dx="8" fill="#E4E6ED">_</tspan></text>
   </g>
-  <g font-family="monospace"><text x="291" y="509" font-size="11" fill="#e8ebf0">▣  Repository name</text><text x="291" y="530" font-size="9" fill="#abb2be">Description from the GitHub API</text><text x="291" y="549" font-size="8" fill="#747d8b">Language     ★ —</text>
-    <text x="571" y="509" font-size="11" fill="#e8ebf0">▣  Repository name</text><text x="571" y="530" font-size="9" fill="#abb2be">Description from the GitHub API</text><text x="571" y="549" font-size="8" fill="#747d8b">Language     ★ —</text>
-    <text x="851" y="509" font-size="11" fill="#e8ebf0">▣  Repository name</text><text x="851" y="530" font-size="9" fill="#abb2be">Description from the GitHub API</text><text x="851" y="549" font-size="8" fill="#747d8b">Language     ★ —</text></g>
-  <text x="64" y="615" font-family="monospace" font-size="11" fill="#818a97">JANGHOTAN.GITHUB.IO</text><text x="1040" y="615" font-family="monospace" font-size="11" fill="#70a9ff">DEVELOPER PROFILE  ↗</text>
+
+  <text x="744" y="126" font-family="ui-monospace,Menlo,monospace" font-size="11" fill="#6C7385">PROFILE / WHOAMI</text>
+  <text x="744" y="174" font-family="Arial,sans-serif" font-size="31" font-weight="600" fill="#E4E6ED">Jangho Tan</text>
+  <text x="744" y="202" font-family="ui-monospace,Menlo,monospace" font-size="14" fill="#6C7385">@janghotan</text>
+  <text x="744" y="252" font-family="Arial,sans-serif" font-size="15" fill="#A7ADBF">Building AI agents &amp; LLM apps.</text>
+  <text x="744" y="276" font-family="Arial,sans-serif" font-size="15" fill="#A7ADBF">Ex-security, still paranoid about guardrails.</text>
+
+  <path d="M744 304h364" stroke="#242938"/>
+  <g font-family="ui-monospace,Menlo,monospace" font-size="12">
+    <text x="744" y="332" fill="#6C7385">focus</text><text x="832" y="332" fill="#A7ADBF">agents · tooling · evals</text>
+    <text x="744" y="362" fill="#6C7385">shell</text><text x="832" y="362" fill="#A7ADBF">zsh · tmux · neovim</text>
+    <text x="744" y="392" fill="#6C7385">status</text><text x="832" y="392" fill="#3FB950">+ open to collaboration</text>
+  </g>
+  <path d="M744 424h364" stroke="#242938"/>
+  <text x="744" y="462" font-family="ui-monospace,Menlo,monospace" font-size="12"><tspan fill="#3FB950">+ agents shipped</tspan></text>
+  <text x="744" y="490" font-family="ui-monospace,Menlo,monospace" font-size="12"><tspan fill="#D29922">~ guardrails hardening</tspan></text>
+  <text x="744" y="518" font-family="ui-monospace,Menlo,monospace" font-size="12"><tspan fill="#F85149">− unsupervised tool calls</tspan></text>
+
+  <path d="M48 546h1104" stroke="#242938"/>
+  <text x="76" y="567" font-family="ui-monospace,Menlo,monospace" font-size="11" fill="#6C7385">📦 PUBLIC REPOS  ·  ⭐ STARS  ·  🧩 LANGUAGES</text>
+  <text x="1124" y="567" text-anchor="end" font-family="ui-monospace,Menlo,monospace" font-size="11" fill="#3FB950">● LIVE FROM GITHUB API</text>
 </svg>
