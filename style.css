@@ -2559,3 +2559,443 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible  {
   }
 
 }
+
+/* Catalog polish: brighter signals, clearer repository metadata, and a persistent browse rail. */
+html {
+    scroll-padding-top: 54px;
+}
+
+.primary-nav {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    border-top: 2px solid var(--red);
+    box-shadow: 0 3px 8px #29262718;
+}
+
+.primary-nav-inner {
+    height: 42px;
+}
+
+.nav-link {
+    position: relative;
+    padding: 5px 0;
+}
+
+.nav-link:not(.nav-about)::after {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    background: var(--orange);
+    content: "";
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .16s ease;
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+    transform: scaleX(1);
+}
+
+.discovery-header {
+    position: relative;
+    overflow: hidden;
+    background: var(--red);
+    box-shadow: inset 0 4px 0 var(--yellow);
+}
+
+.discovery-header::after {
+    position: absolute;
+    right: 180px;
+    bottom: -42px;
+    width: 112px;
+    height: 112px;
+    border: 1px solid #ffffff35;
+    border-radius: 50%;
+    box-shadow: 0 0 0 12px #ffffff12, 0 0 0 25px #ffffff0c;
+    content: "";
+    pointer-events: none;
+}
+
+.discovery-kicker {
+    color: #ffe1b8;
+}
+
+.discovery-count {
+    position: relative;
+    z-index: 1;
+    box-shadow: 3px 3px 0 #b12b24;
+}
+
+.discovery-toolbar {
+    border-bottom: 3px solid var(--orange);
+}
+
+.filter-chip {
+    --filter-accent: var(--orange);
+    min-height: 31px;
+    border-color: #ded8d3;
+    background: #fff;
+    box-shadow: inset 0 -2px 0 #f0ece9;
+    font-weight: 700;
+}
+
+.filter-chip[data-filter="Rust"] {
+    --filter-accent: #c85a2a;
+}
+
+.filter-chip[data-filter="Python"] {
+    --filter-accent: #2868d9;
+}
+
+.filter-chip[data-filter="TypeScript"] {
+    --filter-accent: #7651ce;
+}
+
+.filter-chip[data-filter="HTML"] {
+    --filter-accent: #e34c26;
+}
+
+.filter-chip.active {
+    border-color: var(--filter-accent);
+    background: var(--filter-accent);
+    box-shadow: 0 2px 0 color-mix(in srgb, var(--filter-accent), #000 18%);
+    color: #fff;
+}
+
+.filter-chip:hover {
+    border-color: var(--filter-accent);
+}
+
+.filter-chip span {
+    display: inline-block;
+    min-width: 14px;
+    margin-left: 5px;
+    padding: 1px 3px;
+    background: #fff1e8;
+    color: var(--filter-accent);
+    text-align: center;
+}
+
+.filter-chip.active span {
+    background: #ffffff2e;
+    color: #fff;
+}
+
+.clear-filters {
+    padding: 5px 8px;
+    background: #fff0e8;
+    color: #b93625;
+    text-decoration: none;
+}
+
+.clear-filters:hover {
+    background: var(--red);
+    color: #fff;
+}
+
+.sort-control {
+    padding: 5px 8px;
+    background: #fff7d5;
+    color: #78600e;
+}
+
+.catalog-status {
+    min-height: 32px;
+    padding: 9px 10px 7px;
+    border-bottom: 1px solid #e7d9d0;
+    background: #fff9f4;
+    color: #655955;
+}
+
+.catalog-status::before {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    margin-right: 7px;
+    border-radius: 50%;
+    background: #36ad69;
+    content: "";
+}
+
+.catalog-status[data-source="snapshot"]::before {
+    background: #e0a51a;
+}
+
+.catalog-status.is-error::before {
+    background: var(--red);
+}
+
+.project-grid {
+    gap: 12px;
+}
+
+.project-card {
+    --project-accent: var(--orange);
+    --project-surface: #fff;
+    border: 1px solid #dcd5cf;
+    border-top: 4px solid var(--project-accent);
+    box-shadow: 0 2px 0 #30231a0d;
+}
+
+.project-card[data-project="rewind"] {
+    --project-accent: #f04a2b;
+    --project-surface: #fff8f2;
+}
+
+.project-card[data-project="apt"] {
+    --project-accent: #d4a600;
+    --project-surface: #fffbe8;
+}
+
+.project-card[data-project="gsearch-cli"] {
+    --project-accent: #d83b7d;
+    --project-surface: #fff5f8;
+}
+
+.project-card[data-project="dusk"] {
+    --project-accent: #21945a;
+    --project-surface: #f2fbf5;
+}
+
+.project-card[data-project="micro-dump"] {
+    --project-accent: #2868d9;
+    --project-surface: #f1f6ff;
+}
+
+.project-card[data-project="codex-chatgpt-web"] {
+    --project-accent: #454957;
+    --project-surface: #f4f5f7;
+}
+
+.project-card[data-project="sdk-anything"] {
+    --project-accent: #704bc8;
+    --project-surface: #f6f2ff;
+}
+
+.project-card:hover {
+    border-color: var(--project-accent);
+    box-shadow: 0 7px 16px #30231a20;
+}
+
+.project-card[data-project="micro-dump"] .repo-art {
+    min-height: 158px;
+}
+
+.card-content {
+    background: var(--project-surface);
+}
+
+.language-label {
+    color: var(--project-accent);
+    font-size: 9px;
+}
+
+.repo-state {
+    border-left: 3px solid var(--project-accent);
+    background: #fff;
+    color: #4f4845;
+    font-size: 8px;
+    font-weight: 700;
+}
+
+.repo-state.is-featured {
+    background: #ffe5d8;
+    color: #aa381b;
+}
+
+.repo-state.is-fork {
+    background: #e5e9f4;
+    color: #444a65;
+}
+
+.repo-state.is-archived {
+    background: #f1ece8;
+    color: #655a54;
+}
+
+.project-card h3 {
+    font-size: 16px;
+}
+
+.project-featured h3 {
+    font-size: 23px;
+}
+
+.card-description {
+    min-height: 46px;
+    color: #514a48;
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+.project-featured .card-description {
+    min-height: 60px;
+    font-size: 12px;
+}
+
+.topic-row span {
+    padding: 3px 6px;
+    border-bottom: 2px solid color-mix(in srgb, var(--project-accent), #fff 48%);
+    background: #fff;
+    color: #514b49;
+    font-size: 8px;
+}
+
+.repo-metrics {
+    gap: 10px;
+    color: #504a47;
+    font-size: 9px;
+}
+
+.repo-metrics svg {
+    width: 12px;
+    height: 12px;
+    margin-right: 3px;
+    overflow: visible;
+    fill: var(--project-accent);
+    vertical-align: -2px;
+}
+
+.repo-metrics span[title="Forks"] svg {
+    fill: none;
+    stroke: var(--project-accent);
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.5;
+}
+
+.repo-metrics .updated {
+    color: #746b66;
+    font-size: 8px;
+}
+
+.card-links {
+    min-height: 35px;
+    padding-top: 8px;
+}
+
+.card-links a {
+    color: var(--project-accent);
+    font-size: 10px;
+}
+
+.project-featured .repo-art {
+    min-height: 100%;
+}
+
+@media (max-width: 1100px) {
+    .project-card[data-project="micro-dump"] .repo-art {
+        min-height: 148px;
+    }
+}
+
+@media (max-width: 760px) {
+    .discovery-header {
+        padding: 12px 11px;
+    }
+
+    .discovery-header::after {
+        right: 85px;
+        width: 82px;
+        height: 82px;
+    }
+
+    .discovery-title h2 {
+        font-size: 18px;
+    }
+
+    .discovery-title>div>p:last-child {
+        font-size: 9px;
+    }
+
+    .project-card[data-project="micro-dump"] .repo-art {
+        min-height: 124px;
+    }
+
+    .project-card h3 {
+        font-size: 14px;
+    }
+
+    .project-featured h3 {
+        font-size: 18px;
+    }
+
+    .card-description,
+    .project-featured .card-description {
+        min-height: 52px;
+        font-size: 10px;
+        line-height: 1.45;
+    }
+
+    .topic-row span {
+        font-size: 7px;
+    }
+
+    .repo-metrics {
+        gap: 7px;
+        font-size: 8px;
+    }
+
+    .repo-metrics .updated {
+        font-size: 7px;
+    }
+
+    .card-links a {
+        font-size: 9px;
+    }
+}
+
+@media (max-width: 430px) {
+    .primary-nav-inner {
+        height: 39px;
+    }
+
+    .project-card[data-project="micro-dump"] .repo-art {
+        min-height: 108px;
+    }
+
+    .card-content,
+    .project-featured .card-content {
+        padding: 8px;
+    }
+
+    .project-card h3 {
+        font-size: 13px;
+    }
+
+    .project-featured h3 {
+        font-size: 16px;
+    }
+
+    .card-description,
+    .project-featured .card-description {
+        min-height: 57px;
+        font-size: 10px;
+    }
+
+    .language-label,
+    .repo-state {
+        font-size: 8px;
+    }
+
+    .topic-row span {
+        font-size: 8px;
+    }
+
+    .repo-metrics {
+        gap: 5px;
+        font-size: 8px;
+    }
+
+    .repo-metrics .updated {
+        font-size: 7px;
+    }
+
+    .card-links a {
+        font-size: 8px;
+    }
+}
