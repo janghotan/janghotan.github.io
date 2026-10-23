@@ -825,7 +825,9 @@ button,input,select  {
 }
 .profile-promo-stats small  {
     font:inherit;
-    color:inherit
+    color:inherit;
+    font-size:9px !important;
+    display:inline !important;
 }
 .market-aside  {
     min-width:0;
