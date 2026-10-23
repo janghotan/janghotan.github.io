@@ -1,34 +1,22 @@
-# Jangho Tan
+# Jangho Tan — project shelf
 
-Personal portfolio for Jangho Tan (@janghotan), an AI agent and LLM developer with a security background. Static HTML, CSS, and JavaScript, presented as a compact terminal and developer portfolio.
+A colorful static portfolio for [@janghotan](https://github.com/janghotan), published from the root of this repository with GitHub Pages Actions.
 
 ## Files
 
-```
-index.html               terminal hero, navigation, repo grid, skills, and contact
-style.css                dark terminal UI and responsive layout
-app.js                   public GitHub data, timeout, cache, status, and grid layout
-assets/favicon.svg       terminal prompt mark
-assets/og.svg|png        social preview (1200 × 630)
-.github/workflows/pages.yml
-```
+- `index.html` — semantic page structure and featured projects.
+- `style.css` — responsive design system and layouts.
+- `app.js` — public GitHub data loading, safe public-owner filtering, search, filters, sort, and cards.
+- `repos.json` and `profile.json` — generated public-only fallback snapshot for API downtime.
+- `assets/` — original SVG favicon and social share artwork.
+- `.github/workflows/pages.yml` — existing root-artifact Pages deployment workflow.
 
-## Data and privacy
+## Project data
 
-- Repository data comes from `api.github.com/users/janghotan/repos` with an eight-second timeout.
-- A repository must have `private === false` and must not report private visibility before it can render.
-- The site repository and profile README are hidden from the project list.
-- API failures show an offline status and direct GitHub link; successful results are cached in session storage for ten minutes.
-- The repo grid balances its final row at the current viewport width; additional public repos remain in a collapsed list.
+The browser requests `https://api.github.com/users/janghotan/repos?type=owner&sort=updated&per_page=100` and the public profile endpoint. Repository cards require the matching owner login, `private: false`, and non-private visibility. The portfolio and profile README repositories are omitted from the project list. If the API is unreachable or rate-limited, the page uses `repos.json` and the profile details already in the HTML. No token or server is required.
 
-## Design
-
-- A single terminal window contains the CLI transcript and profile details side by side.
-- Spacing uses the 4, 8, 12, 16, 24, 32, 48, and 64px scale.
-- Green marks additions, amber marks active work, and red marks removals or avoided behavior.
-- JetBrains Mono is used for terminal and data; Inter is used for prose.
-- Motion honors `prefers-reduced-motion`.
+The fallback files can be refreshed from the public GitHub API. Keep only public repositories owned by `janghotan`; do not add credentials.
 
 ## Deploy
 
-Push to `main`. In repository settings, set Pages → Build and deployment → Source to **GitHub Actions**. The workflow at `.github/workflows/pages.yml` publishes the repository root.
+The workflow publishes the repository root when changes reach `main`. In repository settings, Pages must use **GitHub Actions** as its build source. This implementation does not require Node.js or a build step.
