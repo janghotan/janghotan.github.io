@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jangho Tan — AI agents &amp; LLM apps</title>
+<meta name="description" content="Jangho Tan (@janghotan) — building AI agents & LLM apps. Ex-security, still paranoid about guardrails.">
+<meta name="color-scheme" content="dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231A1A2E'/%3E%3Cpath d='M8 11l6 5-6 5' stroke='%237C5CFF' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3Crect x='17' y='19' width='8' height='3' rx='1.5' fill='%2322D3EE'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+<script defer src="app.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<div class="shell">
+
+  <header class="statusbar" role="banner">
+    <span class="sb-emoji" aria-hidden="true">💬</span>
+    <span class="sb-item"><strong id="stat-repos">—</strong> repos</span>
+    <span class="sb-sep" aria-hidden="true">·</span>
+    <span class="sb-emoji" aria-hidden="true">⭐</span>
+    <span class="sb-item"><strong id="stat-stars">—</strong> stars</span>
+    <span class="sb-sep" aria-hidden="true">·</span>
+    <span class="sb-emoji" aria-hidden="true">📦</span>
+    <span class="sb-item"><strong id="stat-langs">—</strong> langs</span>
+    <span class="sb-sep" aria-hidden="true">·</span>
+    <span class="sb-item sb-live"><span class="dot" id="status-dot" aria-hidden="true"></span><span id="status-text">fetching…</span></span>
+    <span class="sb-spacer"></span>
+    <span class="sb-item sb-sync">🔄 <span id="stat-sync">—</span></span>
+  </header>
+
+  <div class="layout">
+
+    <nav class="sidebar" aria-label="Sections">
+      <p class="sidebar-label" aria-hidden="true">💬 chats</p>
+      <ul>
+        <li><a href="#hero" class="nav-item" aria-current="true"><span aria-hidden="true">›</span> whoami</a></li>
+        <li><a href="#repos" class="nav-item"><span aria-hidden="true">›</span> repos <em id="nav-repo-count"></em></a></li>
+        <li><a href="#skills" class="nav-item"><span aria-hidden="true">›</span> skills</a></li>
+        <li><a href="#contact" class="nav-item"><span aria-hidden="true">›</span> contact</a></li>
+      </ul>
+      <p class="sidebar-foot"><span class="green">+</span> open to collab<br><span class="red">−</span> no security theater</p>
+    </nav>
+
+    <main id="main" class="main">
+
+      <section id="hero" class="hero" aria-labelledby="hero-title">
+        <div class="term" role="img" aria-label="Terminal session showing a whoami command and git log for Jangho Tan">
+          <div class="term-bar"><span></span><span></span><span></span><span class="term-title">jangho@tan: ~</span></div>
+          <div class="term-body" aria-hidden="true">
+            <p><span class="prompt">jangho@tan:~$</span> whoami</p>
+            <p class="out">jangho tan <span class="muted">// AI agents &amp; LLM apps</span></p>
+            <p class="out muted">ex-security · guardrails enjoyer</p>
+            <p><span class="prompt">jangho@tan:~$</span> git log --oneline -3</p>
+            <p class="out"><span class="hash">a1f9c2e</span> <span class="green">feat</span>: ship agents that survive prod</p>
+            <p class="out"><span class="hash">7d3b011</span> <span class="amber">wip</span>:  retries, evals, guardrails</p>
+            <p class="out"><span class="hash">c0ffee1</span> <span class="red">fix</span>:  stopped trusting user input</p>
+            <p><span class="prompt">jangho@tan:~$</span> <span class="caret" id="caret"></span></p>
+          </div>
+        </div>
+        <div class="hero-side">
+          <h1 id="hero-title">Jangho Tan <span class="handle">@janghotan</span></h1>
+          <p class="bio">Building AI agents &amp; LLM apps. Ex-security, still paranoid about guardrails.</p>
+          <p class="deltas">
+            <span class="green">+ agents shipped</span>
+            <span class="amber">~ guardrails hardening</span>
+            <span class="red">− unsupervised tool calls</span>
+          </p>
+        </div>
+      </section>
+
+      <section id="repos" aria-labelledby="repos-title">
+        <h2 id="repos-title"><span aria-hidden="true">📦</span> repos <span class="count" id="repo-count"></span></h2>
+        <div class="grid" id="repo-grid" aria-live="polite" aria-busy="true">
+          <p class="loading">loading public repos…</p>
+        </div>
+        <p class="src">live from <code>api.github.com/users/janghotan/repos</code> · public only</p>
+      </section>
+
+      <section id="skills" aria-labelledby="skills-title">
+        <h2 id="skills-title"><span aria-hidden="true">⚡</span> skills</h2>
+        <ul class="tags">
+          <li class="tag add">+ Python</li>
+          <li class="tag add">+ TypeScript</li>
+          <li class="tag add">+ Rust</li>
+          <li class="tag add">+ LLM orchestration</li>
+          <li class="tag add">+ agent tooling / MCP</li>
+          <li class="tag add">+ CLI / TUI UX</li>
+          <li class="tag ctx">~ security review</li>
+          <li class="tag ctx">~ prompt &amp; output guardrails</li>
+          <li class="tag del">− careless side effects</li>
+        </ul>
+      </section>
+
+      <section id="contact" aria-labelledby="contact-title">
+        <h2 id="contact-title"><span aria-hidden="true">✉️</span> contact</h2>
+        <ul class="contact-row">
+          <li><a href="https://github.com/janghotan" rel="me noopener"><span aria-hidden="true">🐙</span> GitHub</a></li>
+          <li><a href="https://x.com/janghotan" rel="me noopener"><span aria-hidden="true">𝕏</span> @janghotan</a></li>
+          <li><a href="mailto:janghotan@gmail.com"><span aria-hidden="true">✉️</span> janghotan@gmail.com</a></li>
+        </ul>
+      </section>
+
+    </main>
+  </div>
+
+  <footer class="footer">
+    <span>© <span id="year"></span> Jangho Tan</span>
+    <span class="footer-sep" aria-hidden="true">·</span>
+    <span>plain HTML/CSS/JS · GitHub Pages</span>
+  </footer>
+</div>
+</body>
+</html>
